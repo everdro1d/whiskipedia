@@ -32,7 +32,6 @@ public class ButtonAction {
             ) {
                 @Override
                 public void applySettings() {
-                    localeManager.reloadLocaleInProgram(prefs.get("currentLocale", localeManager.getCurrentLocale()));
                     currentLocale = localeManager.getCurrentLocale();
 
                     debug = prefs.getBoolean("debug", debug);
