@@ -64,8 +64,6 @@ public class MainWorker {
             debugConsoleWindow,
             settingsWindow
     };
-
-    // NOTE: central variables
     /**
      * Valid: "Windows", "macOS", "Unix"
      */
