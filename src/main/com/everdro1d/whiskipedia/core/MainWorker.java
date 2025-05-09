@@ -65,7 +65,7 @@ public class MainWorker {
             settingsWindow
     };
     /**
-     * Valid: "Windows", "macOS", "Unix"
+     * Valid: "windows", "mac", "unix"
      */
     public static String detectedOS;
     public static boolean darkMode = false; // TODO: only if dark mode is enabled
@@ -134,16 +134,16 @@ public class MainWorker {
      */
     public static void executeOSSpecificCode(String detectedOS) {
         switch (detectedOS) {
-            case "Windows" -> {
+            case "windows" -> {
                 // Windows specific code
             }
-            case "macOS" -> {
+            case "mac" -> {
                 // MacOS specific code
 
                 System.setProperty("apple.awt.application.name", MainWindow.titleText);
                 System.setProperty("apple.awt.application.appearance", "system");
             }
-            case "Unix" -> {
+            case "unix" -> {
                 // Unix specific code
             }
             default -> {
