@@ -88,7 +88,7 @@ public class MainWindow extends JFrame {
         topFrame.setTitle(titleText);
         topFrame.setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         topFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        topFrame.setResizable(false); // TODO: resizeable?
+        topFrame.setResizable(true);
         topFrame.setLocationRelativeTo(null);
 
         topFrame.addComponentListener(new ComponentAdapter() {
