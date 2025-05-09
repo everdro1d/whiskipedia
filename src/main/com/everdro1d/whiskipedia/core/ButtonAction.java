@@ -18,7 +18,6 @@ public class ButtonAction {
 
     // Variables ------------------------------------------------------------------------------------------------------|
 
-    // NOTE: settings window for locale changes & basic settings
     public static BasicSettingsWindow settingsWindow;
 
     public static void showSettingsWindow() {

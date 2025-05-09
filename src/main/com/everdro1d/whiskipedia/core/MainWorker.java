@@ -24,41 +24,21 @@ import java.util.prefs.Preferences;
 
 public class MainWorker {
     // Variables ------------------------------------------------------------------------------------------------------|
-
-    // NOTE: Update checker info
-    public static final String githubRepoURL = "https://github.com/everdro1d/SwingGUIApplicationTemplate/"; // TODO: replace this with relevant repo
-    public static final String devWebsite = "https://everdro1d.github.io/"; // TODO: update this for github user or pages
+    public static final String githubRepoURL = "https://github.com/everdro1d/whiskipedia/";
+    public static final String devWebsite = "https://everdro1d.github.io/";
     public static final String currentVersion = "1.0.0"; // TODO: update me with each release
-    public static final String developerConfigDirectoryName = "dro1dDev"; // TODO: update this for dev
-
-    // NOTE: CommandManager obj for CLI args
+    public static final String developerConfigDirectoryName = "dro1dDev";
     private static final Map<String, CommandInterface> CUSTOM_COMMANDS_MAP = Map.of(
             "-debug", new DebugCommand()
     );
     public static CommandManager commandManager = new CommandManager(CUSTOM_COMMANDS_MAP);
-
-    // NOTE: default locale & LocaleManager to handle I18n
     public static String currentLocale = "eng";
     public static final LocaleManager localeManager = new LocaleManager(MainWorker.class, developerConfigDirectoryName);
-
-    // NOTE: debug logging output all 'sout' statements must be wrapped in 'if (debug)'
     public static boolean debug = false;
     public static DebugConsoleWindow debugConsoleWindow;
-
-    // NOTE: preferences object for saving and loading user settings
     public static final Preferences prefs = Preferences.userNodeForPackage(MainWorker.class);
-
-    // NOTE: default window position
     public static int[] windowPosition = {0, 0, 0};
-
-    // NOTE: instance of MainWindow
     private static MainWindow mainWindow;
-
-    /* NOTE: frame array exists because window title bars don't update with the LaF
-     *       add any non-modal frames that exist as windows here to fix it
-     *       also dont forget to set the frame here after creating it
-     *       (e.g. after creating debug window: windowFrameArray[1] = DebugConsoleWindow.debugFrame;)
-     */
     public static JFrame[] windowFrameArray = new JFrame[]{
             mainWindow,
             debugConsoleWindow,
@@ -68,7 +48,7 @@ public class MainWorker {
      * Valid: "windows", "mac", "unix"
      */
     public static String detectedOS;
-    public static boolean darkMode = false; // TODO: only if dark mode is enabled
+    public static boolean darkMode = false;
 
     // End of variables -----------------------------------------------------------------------------------------------|
 
@@ -81,7 +61,7 @@ public class MainWorker {
         ApplicationCore.checkCLIArgs(args, commandManager);
         checkOSCompatibility();
 
-        SwingGUI.setupLookAndFeel(true, true); // TODO: if dark mode should be setup
+        SwingGUI.setupLookAndFeel(true, true);
 
         SwingGUI.uiSetup(MainWindow.fontName, MainWindow.fontSize);
 
@@ -99,15 +79,11 @@ public class MainWorker {
 
         // checkUpdate(); TODO: enable when ready for release
 
-        // NOTE: this adds the program version to the locale header
         if (!localeManager.getClassesInLocaleMap().contains("!head")) {
             addVersionToLocale();
         }
     }
 
-    /**
-     * Adds the application version to the locale.
-     */
     private static void addVersionToLocale() {
         Map<String, Map<String, String>> classMap = new TreeMap<>();
         classMap.put("version", new TreeMap<>());
@@ -117,21 +93,12 @@ public class MainWorker {
         localeManager.addClassSpecificMap("!head", classMap);
     }
 
-    /**
-     * Detects the OS to determine compat with application and dependencies.
-     * @see #executeOSSpecificCode(String)
-     */
     public static void checkOSCompatibility() {
         String detectedOS = ApplicationCore.detectOS();
         MainWorker.detectedOS = detectedOS;
         executeOSSpecificCode(detectedOS);
     }
 
-    /**
-     * Execute OS specific code.
-     * @param detectedOS the detected OS
-     * @see #checkOSCompatibility()
-     */
     public static void executeOSSpecificCode(String detectedOS) {
         switch (detectedOS) {
             case "windows" -> {
@@ -153,9 +120,6 @@ public class MainWorker {
         }
     }
 
-    /**
-     * Load the user settings from the preferences. And save the settings on exit.
-     */
     private static void loadPreferencesAndQueueSave() {
         ApplicationCore.loadConfigFile(MainWorker.class, developerConfigDirectoryName);
 
@@ -167,9 +131,6 @@ public class MainWorker {
         savePreferencesOnExit();
     }
 
-    /**
-     * Save the user settings on exit.
-     */
     private static void savePreferencesOnExit() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             saveWindowPosition();
@@ -181,27 +142,18 @@ public class MainWorker {
         }));
     }
 
-    /**
-     * Load the window position from the preferences. And save the position on exit.
-     */
     private static void loadWindowPosition() {
         windowPosition[0] = prefs.getInt("framePosX", 0);
         windowPosition[1] = prefs.getInt("framePosY", 0);
         windowPosition[2] = prefs.getInt("activeMonitor", 0);
     }
 
-    /**
-     * Save the window position to the preferences.
-     */
     private static void saveWindowPosition() {
         prefs.putInt("framePosX", windowPosition[0]);
         prefs.putInt("framePosY", windowPosition[1]);
         prefs.putInt("activeMonitor", windowPosition[2]);
     }
 
-    /**
-     * Start the MainWindow.
-     */
     private static void startMainWindow() {
         EventQueue.invokeLater(() -> {
             try {
@@ -226,9 +178,6 @@ public class MainWorker {
         });
     }
 
-    /**
-     * Create or show the debug console window.
-     */
     public static void showDebugConsole() {
         if (debugConsoleWindow == null) {
             debugConsoleWindow = new DebugConsoleWindow(
@@ -251,10 +200,6 @@ public class MainWorker {
         }
     }
 
-    /**
-     * Checks project GitHub for the latest version at launch.
-     * Remember to enable this in startUpActions before release.
-     */
     public static void checkUpdate() {
         new Thread(() -> UpdateCheckerDialog.showUpdateCheckerDialog(
                 currentVersion, null, debug, githubRepoURL,

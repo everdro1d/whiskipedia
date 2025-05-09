@@ -33,7 +33,6 @@ public class MainWindow extends JFrame {
     // End of Swing components --------------------------------------------|
 
     // UI Text Defaults ---------------------------------------------------|
-    // TODO 1: add to locale default methods
     public static String titleText = "SwingGUI Application Template";
     public static String darkModeButtonText = "Dark Mode Switch";
     // End of UI Text Defaults --------------------------------------------|
@@ -84,9 +83,6 @@ public class MainWindow extends JFrame {
         darkModeButtonText = varMap.getOrDefault("darkModeButtonText", darkModeButtonText);
     }
 
-    /**
-     * Initialize the window.
-     */
     private void initializeWindowProperties() {
         topFrame = this;
         topFrame.setTitle(titleText);
@@ -103,15 +99,11 @@ public class MainWindow extends JFrame {
         });
     }
 
-    /**
-     * Initialize the GUI components.
-     */
     private void initializeGUIComponents() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         topFrame.add(mainPanel);
         {
-            // TODO: add components here
             northPanel = new JPanel();
             northPanel.setLayout(new GridBagLayout());
             northPanel.setPreferredSize(new Dimension(WINDOW_WIDTH - (EDGE_PADDING * 2), 60));
