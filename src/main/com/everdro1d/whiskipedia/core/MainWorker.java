@@ -2,7 +2,7 @@
  * dro1dDev - created: 2025-05-08
  */
 
-package main.com.everdro1d.swingtemplate.core;
+package main.com.everdro1d.whiskipedia.core;
 
 import com.everdro1d.libs.commands.CommandInterface;
 import com.everdro1d.libs.commands.CommandManager;
@@ -11,8 +11,9 @@ import com.everdro1d.libs.locale.*;
 import com.everdro1d.libs.swing.*;
 import com.everdro1d.libs.swing.dialogs.UpdateCheckerDialog;
 import com.everdro1d.libs.swing.windows.DebugConsoleWindow;
-import main.com.everdro1d.swingtemplate.ui.MainWindow;
-import main.com.everdro1d.swingtemplate.core.commands.DebugCommand;
+import main.com.everdro1d.whiskipedia.ui.MainWindow;
+import main.com.everdro1d.whiskipedia.core.commands.DebugCommand;
+import static main.com.everdro1d.whiskipedia.core.ButtonAction.settingsWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.prefs.Preferences;
 
-import static main.com.everdro1d.swingtemplate.core.ButtonAction.settingsWindow;
 
 public class MainWorker {
     // Variables ------------------------------------------------------------------------------------------------------|

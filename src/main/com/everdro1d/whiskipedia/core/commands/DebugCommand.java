@@ -1,12 +1,12 @@
-package main.com.everdro1d.swingtemplate.core.commands;
 /*
  * dro1dDev - created: 2025-05-08
  */
 
+package main.com.everdro1d.whiskipedia.core.commands;
 
 import com.everdro1d.libs.commands.CommandInterface;
 import com.everdro1d.libs.commands.CommandManager;
-import main.com.everdro1d.swingtemplate.core.MainWorker;
+import main.com.everdro1d.whiskipedia.core.MainWorker;
 
 public class DebugCommand implements CommandInterface {
     private String description = "enable debug logging to stdout and launch debug console window";

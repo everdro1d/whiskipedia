@@ -2,7 +2,7 @@
  * dro1dDev - created: 2025-05-08
  */
 
-package main.com.everdro1d.swingtemplate.ui;
+package main.com.everdro1d.whiskipedia.ui;
 
 import com.everdro1d.libs.swing.SwingGUI;
 
@@ -13,8 +13,8 @@ import java.awt.event.ComponentEvent;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static main.com.everdro1d.swingtemplate.core.ButtonAction.showSettingsWindow;
-import static main.com.everdro1d.swingtemplate.core.MainWorker.*;
+import static main.com.everdro1d.whiskipedia.core.ButtonAction.showSettingsWindow;
+import static main.com.everdro1d.whiskipedia.core.MainWorker.*;
 
 public class MainWindow extends JFrame {
     // Variables ------------------------------------------------------------------------------------------------------|

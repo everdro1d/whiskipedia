@@ -1,17 +1,17 @@
-package main.com.everdro1d.swingtemplate.ui.panels;
 /*
  * dro1dDev - created: 2025-05-08
  */
 
+package main.com.everdro1d.whiskipedia.ui.panels;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static main.com.everdro1d.swingtemplate.core.MainWorker.*;
-import static main.com.everdro1d.swingtemplate.ui.MainWindow.fontName;
-import static main.com.everdro1d.swingtemplate.ui.MainWindow.fontSize;
+import static main.com.everdro1d.whiskipedia.core.MainWorker.*;
+import static main.com.everdro1d.whiskipedia.ui.MainWindow.fontName;
+import static main.com.everdro1d.whiskipedia.ui.MainWindow.fontSize;
 
 public class GeneralSettingsPanel extends JPanel {
     private final JLabel debugSwitchLabel;

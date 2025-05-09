@@ -1,19 +1,18 @@
-package main.com.everdro1d.swingtemplate.core;
 /*
  * dro1dDev - created: 2025-05-08
  */
 
+package main.com.everdro1d.whiskipedia.core;
 
-import com.everdro1d.libs.swing.SwingGUI;
 import com.everdro1d.libs.swing.windows.settings.BasicSettingsWindow;
-import main.com.everdro1d.swingtemplate.ui.MainWindow;
-import main.com.everdro1d.swingtemplate.ui.panels.GeneralSettingsPanel;
+import main.com.everdro1d.whiskipedia.ui.MainWindow;
+import main.com.everdro1d.whiskipedia.ui.panels.GeneralSettingsPanel;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-import static main.com.everdro1d.swingtemplate.core.MainWorker.*;
-import static main.com.everdro1d.swingtemplate.ui.MainWindow.topFrame;
+import static main.com.everdro1d.whiskipedia.core.MainWorker.*;
+import static main.com.everdro1d.whiskipedia.ui.MainWindow.topFrame;
 
 public class ButtonAction {
 
