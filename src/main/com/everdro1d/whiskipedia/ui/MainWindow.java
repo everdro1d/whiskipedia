@@ -54,7 +54,7 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         // if the locale does not contain the class, add it and it's components
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")) {
-            addClassToLocale();
+            //addClassToLocale(); TODO: re-enable when built
         }
         useLocale();
 
