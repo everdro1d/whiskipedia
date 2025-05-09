@@ -1,5 +1,5 @@
 /*
- * dro1dDev 2025 - SwingGUI Templates - MainWindow.java
+ * dro1dDev - created: 2025-05-08
  */
 
 package main.com.everdro1d.swingtemplate.ui;

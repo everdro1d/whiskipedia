@@ -1,4 +1,8 @@
 package main.com.everdro1d.swingtemplate.core.commands;
+/*
+ * dro1dDev - created: 2025-05-08
+ */
+
 
 import com.everdro1d.libs.commands.CommandInterface;
 import com.everdro1d.libs.commands.CommandManager;

@@ -1,4 +1,8 @@
 package main.com.everdro1d.swingtemplate.ui.panels;
+/*
+ * dro1dDev - created: 2025-05-08
+ */
+
 
 import javax.swing.*;
 import java.awt.*;

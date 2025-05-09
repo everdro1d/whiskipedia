@@ -1,4 +1,8 @@
 package main.com.everdro1d.swingtemplate.core;
+/*
+ * dro1dDev - created: 2025-05-08
+ */
+
 
 import com.everdro1d.libs.swing.SwingGUI;
 import com.everdro1d.libs.swing.windows.settings.BasicSettingsWindow;
