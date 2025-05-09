@@ -33,7 +33,7 @@ public class MainWindow extends JFrame {
     // End of Swing components --------------------------------------------|
 
     // UI Text Defaults ---------------------------------------------------|
-    public static String titleText = "SwingGUI Application Template";
+    public static String titleText = "Whiskipedia";
     public static String darkModeButtonText = "Dark Mode Switch";
     // End of UI Text Defaults --------------------------------------------|
 

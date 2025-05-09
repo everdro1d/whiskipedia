@@ -203,7 +203,7 @@ public class MainWorker {
     public static void checkUpdate() {
         new Thread(() -> UpdateCheckerDialog.showUpdateCheckerDialog(
                 currentVersion, null, debug, githubRepoURL,
-                devWebsite + "posts/swing-gui-application-template/", // TODO: update the webpage path
+                devWebsite + "posts/whiskipedia/",
                 prefs, localeManager
         )).start();
     }
