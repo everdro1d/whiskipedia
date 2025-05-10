@@ -123,8 +123,10 @@ public class MainWindow extends JFrame {
                 logoIconContainer.setPreferredSize(new Dimension(50, 50));
                 Icon logoIcon = SwingGUI.getApplicationIcon("images/logoIcon50.png", this.getClass());
                 logoIconContainer.setIcon(logoIcon);
-                logoIconContainer.setBackground(Color.PINK); //TODO
-                logoIconContainer.setOpaque(true); // TODO
+                if (guiDebugColoring) {
+                    logoIconContainer.setBackground(Color.PINK);
+                    logoIconContainer.setOpaque(true);
+                }
                 logoIconContainer.setHorizontalAlignment(SwingConstants.CENTER);
                 northPanel.add(logoIconContainer, northGBC);
 
@@ -136,8 +138,10 @@ public class MainWindow extends JFrame {
                 titleLabel = new JLabel(titleText);
                 titleLabel.setFont(new Font(fontName, Font.BOLD, fontSize + 12));
                 titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
-                titleLabel.setBackground(Color.YELLOW); //TODO
-                titleLabel.setOpaque(true); //TODO
+                if (guiDebugColoring) {
+                    titleLabel.setBackground(Color.YELLOW);
+                    titleLabel.setOpaque(true);
+                }
                 northPanel.add(titleLabel, northGBC);
 
                 // Add settings button
@@ -151,7 +155,8 @@ public class MainWindow extends JFrame {
                 Icon settingsIcon = SwingGUI.getApplicationIcon("images/settings.png", this.getClass());
                 settingsButton.setIcon(settingsIcon);
                 settingsButton.setBorderPainted(false);
-                settingsButton.setContentAreaFilled(false);
+                if (guiDebugColoring) settingsButton.setBackground(Color.PINK);
+                settingsButton.setContentAreaFilled(guiDebugColoring);
                 northPanel.add(settingsButton, northGBC);
 
                 settingsButton.addActionListener(e -> showSettingsWindow());
@@ -189,7 +194,7 @@ public class MainWindow extends JFrame {
 
                 recipePanel = new JPanel();
                 recipePanel.setLayout(new BorderLayout());
-                recipePanel.setBackground(Color.BLUE); //TODO
+                if (guiDebugColoring) recipePanel.setBackground(Color.BLUE);
                 centerPanel.add(recipePanel, centerGBC);
             }
 
@@ -208,18 +213,18 @@ public class MainWindow extends JFrame {
                 // Add components to southPanel
                 JPanel spacer = new JPanel();
                 spacer.setMinimumSize(new Dimension(50, 50));
-                spacer.setBackground(Color.GREEN); //TODO
+                if (guiDebugColoring) spacer.setBackground(Color.GREEN);
                 southPanel.add(spacer, southGBC);
             }
 
             eastPanel = new JPanel();
             eastPanel.setMinimumSize(new Dimension(EDGE_PADDING, 10));
-            eastPanel.setBackground(Color.RED); //TODO
+            if (guiDebugColoring) eastPanel.setBackground(Color.RED);
             mainPanel.add(eastPanel, BorderLayout.EAST);
 
             westPanel = new JPanel();
             westPanel.setMinimumSize(new Dimension(EDGE_PADDING, 10));
-            westPanel.setBackground(Color.RED); //TODO
+            if (guiDebugColoring) westPanel.setBackground(Color.RED);
             mainPanel.add(westPanel, BorderLayout.WEST);
             //TODO add placeholder recipeListPanel
         }

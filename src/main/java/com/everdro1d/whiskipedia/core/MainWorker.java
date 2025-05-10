@@ -11,6 +11,7 @@ import com.everdro1d.libs.locale.*;
 import com.everdro1d.libs.swing.*;
 import com.everdro1d.libs.swing.dialogs.UpdateCheckerDialog;
 import com.everdro1d.libs.swing.windows.DebugConsoleWindow;
+import com.everdro1d.whiskipedia.core.commands.GUIDebugCommand;
 import com.everdro1d.whiskipedia.ui.MainWindow;
 import com.everdro1d.whiskipedia.core.commands.DebugCommand;
 import static com.everdro1d.whiskipedia.core.ButtonAction.settingsWindow;
@@ -29,12 +30,14 @@ public class MainWorker {
     public static final String currentVersion = "0.0.1"; // TODO: update me with each release
     public static final String developerConfigDirectoryName = "dro1dDev";
     private static final Map<String, CommandInterface> CUSTOM_COMMANDS_MAP = Map.of(
-            "-debug", new DebugCommand()
+            "-debug", new DebugCommand(),
+            "--gui-debug", new GUIDebugCommand()
     );
     public static CommandManager commandManager = new CommandManager(CUSTOM_COMMANDS_MAP);
     public static String currentLocale = "eng";
     public static final LocaleManager localeManager = new LocaleManager(MainWorker.class, developerConfigDirectoryName);
     public static boolean debug = false;
+    public static boolean guiDebugColoring = false;
     public static DebugConsoleWindow debugConsoleWindow;
     public static final Preferences prefs = Preferences.userNodeForPackage(MainWorker.class);
     public static int[] windowPosition = {0, 0, 0};
