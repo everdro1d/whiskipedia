@@ -233,7 +233,7 @@ public class MainWindow extends JFrame {
 
             westPanel = new JPanel();
             westPanel.setMinimumSize(new Dimension(EDGE_PADDING, 10));
-            westPanel.setBorder(BorderFactory.createEmptyBorder(0,EDGE_PADDING,0,0));
+            westPanel.setBorder(BorderFactory.createEmptyBorder(0,EDGE_PADDING - 6,0,0));
             if (guiDebugColoring) westPanel.setBackground(Color.RED);
             mainPanel.add(westPanel, BorderLayout.WEST);
             //TODO add placeholder recipeListPanel
