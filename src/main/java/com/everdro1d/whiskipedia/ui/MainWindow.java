@@ -43,9 +43,9 @@ public class MainWindow extends JFrame {
     // NOTE: font name and size for the application
     public static String fontName = "Tahoma";
     public static int fontSize = 16;
-    public static final Font font = new Font(fontName, Font.PLAIN, fontSize);
-    public static final Font boldFont = new Font(fontName, Font.BOLD, fontSize);
-    public static final Font smallFont = new Font(fontName, Font.PLAIN, (fontSize - 2));
+    public static final Font FONT = new Font(fontName, Font.PLAIN, fontSize);
+    public static final Font BOLD_FONT = new Font(fontName, Font.BOLD, fontSize);
+    public static final Font SMALL_FONT = new Font(fontName, Font.PLAIN, (fontSize - 2));
 
     private final int MIN_WINDOW_WIDTH = 900;
     private final int EDGE_PADDING = 15;
