@@ -98,6 +98,7 @@ public class MainWindow extends JFrame {
                 windowPosition = SwingGUI.getFramePositionOnScreen(topFrame);
             }
 
+            @Override
             public void componentResized(ComponentEvent e) {
                 windowSize = topFrame.getSize();
             }
