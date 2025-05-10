@@ -97,6 +97,10 @@ public class MainWindow extends JFrame {
             public void componentMoved(ComponentEvent e) {
                 windowPosition = SwingGUI.getFramePositionOnScreen(topFrame);
             }
+
+            public void componentResized(ComponentEvent e) {
+                windowSize = topFrame.getSize();
+            }
         });
     }
 

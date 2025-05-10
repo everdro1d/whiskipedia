@@ -41,6 +41,7 @@ public class MainWorker {
     public static DebugConsoleWindow debugConsoleWindow;
     public static final Preferences prefs = Preferences.userNodeForPackage(MainWorker.class);
     public static int[] windowPosition = {0, 0, 0};
+    public static Dimension windowSize = new Dimension();
     private static MainWindow mainWindow;
     public static JFrame[] windowFrameArray = new JFrame[]{
             mainWindow,
@@ -149,12 +150,20 @@ public class MainWorker {
         windowPosition[0] = prefs.getInt("framePosX", 0);
         windowPosition[1] = prefs.getInt("framePosY", 0);
         windowPosition[2] = prefs.getInt("activeMonitor", 0);
+
+        windowSize.setSize(
+                prefs.getInt("windowWidth", MainWindow.getMinimumWindowWidth()),
+                prefs.getInt("windowHeight", MainWindow.getMinimumWindowHeight())
+        );
     }
 
     private static void saveWindowPosition() {
         prefs.putInt("framePosX", windowPosition[0]);
         prefs.putInt("framePosY", windowPosition[1]);
         prefs.putInt("activeMonitor", windowPosition[2]);
+
+        prefs.putInt("windowWidth", windowSize.width);
+        prefs.putInt("windowHeight", windowSize.height);
     }
 
     private static void startMainWindow() {
@@ -169,6 +178,7 @@ public class MainWorker {
                         windowPosition[1],
                         windowPosition[2]
                 );
+                mainWindow.setSize(windowSize);
                 SwingGUI.setFrameIcon(mainWindow, "images/logoIcon50.png", MainWorker.class);
 
                 // NOTE: the following is only if using dark mode
