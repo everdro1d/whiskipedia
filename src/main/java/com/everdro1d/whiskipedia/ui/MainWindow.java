@@ -254,12 +254,11 @@ public class MainWindow extends JFrame {
         settingsButton.setIcon(i);
     }
 
-    //TODO change const when updating minimums
-    public static int getMinimumWindowWidth() {
-        return 900;
+    public int getMinimumWindowWidth() {
+        return MIN_WINDOW_WIDTH;
     }
 
-    public static int getMinimumWindowHeight() {
-        return 600;
+    public int getMinimumWindowHeight() {
+        return MIN_WINDOW_HEIGHT;
     }
 }

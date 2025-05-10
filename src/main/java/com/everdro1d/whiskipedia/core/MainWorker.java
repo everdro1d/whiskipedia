@@ -150,11 +150,6 @@ public class MainWorker {
         windowPosition[0] = prefs.getInt("framePosX", 0);
         windowPosition[1] = prefs.getInt("framePosY", 0);
         windowPosition[2] = prefs.getInt("activeMonitor", 0);
-
-        windowSize.setSize(
-                prefs.getInt("windowWidth", MainWindow.getMinimumWindowWidth()),
-                prefs.getInt("windowHeight", MainWindow.getMinimumWindowHeight())
-        );
     }
 
     private static void saveWindowPosition() {
@@ -178,7 +173,14 @@ public class MainWorker {
                         windowPosition[1],
                         windowPosition[2]
                 );
+
+                windowSize.setSize(
+                        prefs.getInt("windowWidth", mainWindow.getMinimumWindowWidth()),
+                        prefs.getInt("windowHeight", mainWindow.getMinimumWindowHeight())
+                );
+
                 mainWindow.setSize(windowSize);
+
                 SwingGUI.setFrameIcon(mainWindow, "images/logoIcon50.png", MainWorker.class);
 
                 // NOTE: the following is only if using dark mode
