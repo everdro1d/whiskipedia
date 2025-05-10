@@ -45,9 +45,9 @@ public class MainWindow extends JFrame {
     public static final Font boldFont = new Font(fontName, Font.BOLD, fontSize);
     public static final Font smallFont = new Font(fontName, Font.PLAIN, (fontSize - 2));
 
-    private final int WINDOW_WIDTH = 600;
+    private final int MIN_WINDOW_WIDTH = 900;
     private final int EDGE_PADDING = 15;
-    private final int WINDOW_HEIGHT = 400;
+    private final int MIN_WINDOW_HEIGHT = 600;
 
 
     // End of variables -----------------------------------------------------------------------------------------------|
@@ -87,7 +87,7 @@ public class MainWindow extends JFrame {
     private void initializeWindowProperties() {
         topFrame = this;
         topFrame.setTitle(titleText);
-        topFrame.setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+        topFrame.setMinimumSize(new Dimension(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT));
         topFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         topFrame.setResizable(true);
         topFrame.setLocationRelativeTo(null);
@@ -107,7 +107,7 @@ public class MainWindow extends JFrame {
         {
             northPanel = new JPanel();
             northPanel.setLayout(new GridBagLayout());
-            northPanel.setPreferredSize(new Dimension(WINDOW_WIDTH - (EDGE_PADDING * 2), 60));
+            northPanel.setPreferredSize(new Dimension(MIN_WINDOW_WIDTH - (EDGE_PADDING * 2), 60));
             GridBagConstraints northGBC = new GridBagConstraints();
             // set defaults for gbc
             northGBC.gridx = 0;
@@ -162,7 +162,7 @@ public class MainWindow extends JFrame {
                 northGBC.anchor = GridBagConstraints.CENTER; // center the separator
 
                 titleSeparator = new JSeparator();
-                titleSeparator.setPreferredSize(new Dimension(WINDOW_WIDTH - (EDGE_PADDING * 4), 4));
+                titleSeparator.setPreferredSize(new Dimension(MIN_WINDOW_WIDTH - (EDGE_PADDING * 4), 4));
                 northPanel.add(titleSeparator, northGBC);
             }
 
