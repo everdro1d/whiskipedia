@@ -28,14 +28,16 @@ public class MainWindow extends JFrame {
                 private JButton settingsButton;
                 private JSeparator titleSeparator;
             private JPanel centerPanel;
-                private JLabel exampleLabel;
-                private JButton darkModeButton;
+                private JPanel recipePanel;
+            private JPanel southPanel;
+            private JPanel eastPanel;
+            private JPanel westPanel;
+                private JPanel recipeListPanel;
 
     // End of Swing components --------------------------------------------|
 
     // UI Text Defaults ---------------------------------------------------|
     public static String titleText = "Whiskipedia";
-    public static String darkModeButtonText = "Dark Mode Switch";
     // End of UI Text Defaults --------------------------------------------|
 
     // NOTE: font name and size for the application
@@ -73,7 +75,6 @@ public class MainWindow extends JFrame {
         map.put("Main", new TreeMap<>());
         Map<String, String> mainMap = map.get("Main");
         mainMap.put("titleText", titleText);
-        mainMap.put("darkModeButtonText", darkModeButtonText);
 
         localeManager.addClassSpecificMap("MainWindow", map);
     }
@@ -81,7 +82,6 @@ public class MainWindow extends JFrame {
     private void useLocale() {
         Map<String, String> varMap = localeManager.getAllVariablesWithinClassSpecificMap("MainWindow");
         titleText = varMap.getOrDefault("titleText", titleText);
-        darkModeButtonText = varMap.getOrDefault("darkModeButtonText", darkModeButtonText);
     }
 
     private void initializeWindowProperties() {
@@ -178,25 +178,42 @@ public class MainWindow extends JFrame {
             centerGBC.insets = new Insets(4, 4, 4, 4);
             mainPanel.add(centerPanel, BorderLayout.CENTER);
             {
-                exampleLabel = new JLabel(titleText);
-                exampleLabel.setFont(boldFont);
-                exampleLabel.setAlignmentX(SwingConstants.CENTER);
-                exampleLabel.setAlignmentY(SwingConstants.CENTER);
-                centerPanel.add(exampleLabel, centerGBC);
+                // Add recipe panel
+                centerGBC.gridx++;
+                centerGBC.weightx = 1;
+                centerGBC.fill = GridBagConstraints.BOTH;
 
-                centerGBC.gridy++; // vertical position between components
-
-                darkModeButton = new JButton(darkModeButtonText);
-                darkModeButton.setFont(boldFont);
-                darkModeButton.setAlignmentX(SwingConstants.CENTER);
-                darkModeButton.setAlignmentY(SwingConstants.CENTER);
-                centerPanel.add(darkModeButton, centerGBC);
-
-                darkModeButton.addActionListener(e -> {
-                    darkMode = !darkMode;
-                    darkModeSwitch();
-                });
+                recipePanel = new JPanel();
+                recipePanel.setLayout(new BorderLayout());
+                centerPanel.add(recipePanel, centerGBC);
             }
+
+            southPanel = new JPanel();
+            southPanel.setLayout(new GridBagLayout());
+            GridBagConstraints southGBC = new GridBagConstraints();
+            southGBC.gridx = 0;
+            southGBC.gridy = 0;
+            southGBC.weightx = 0;
+            southGBC.weighty = 1;
+            southGBC.anchor = GridBagConstraints.CENTER;
+            southGBC.fill = GridBagConstraints.HORIZONTAL;
+            southGBC.insets = new Insets(4, 4, 4, 4);
+            mainPanel.add(southPanel, BorderLayout.SOUTH);
+            {
+                // Add components to southPanel
+                JPanel spacer = new JPanel();
+                spacer.setMinimumSize(new Dimension(50, 50));
+                southPanel.add(spacer, southGBC);
+            }
+
+            eastPanel = new JPanel();
+            eastPanel.setMinimumSize(new Dimension(EDGE_PADDING, 10));
+            mainPanel.add(eastPanel, BorderLayout.EAST);
+
+            westPanel = new JPanel();
+            westPanel.setMinimumSize(new Dimension(EDGE_PADDING, 10));
+            mainPanel.add(westPanel, BorderLayout.WEST);
+            //TODO add placeholder recipeListPanel
         }
     }
 
