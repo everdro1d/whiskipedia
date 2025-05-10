@@ -2,17 +2,17 @@
  * dro1dDev - created: 2025-05-08
  */
 
-package main.com.everdro1d.whiskipedia.core;
+package com.everdro1d.whiskipedia.core;
 
 import com.everdro1d.libs.swing.windows.settings.BasicSettingsWindow;
-import main.com.everdro1d.whiskipedia.ui.MainWindow;
-import main.com.everdro1d.whiskipedia.ui.panels.GeneralSettingsPanel;
+import com.everdro1d.whiskipedia.ui.MainWindow;
+import com.everdro1d.whiskipedia.ui.panels.GeneralSettingsPanel;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-import static main.com.everdro1d.whiskipedia.core.MainWorker.*;
-import static main.com.everdro1d.whiskipedia.ui.MainWindow.topFrame;
+import static com.everdro1d.whiskipedia.core.MainWorker.*;
+import static com.everdro1d.whiskipedia.ui.MainWindow.topFrame;
 
 public class ButtonAction {
 

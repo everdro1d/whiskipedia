@@ -2,7 +2,7 @@
  * dro1dDev - created: 2025-05-08
  */
 
-package main.com.everdro1d.whiskipedia.core;
+package com.everdro1d.whiskipedia.core;
 
 import com.everdro1d.libs.commands.CommandInterface;
 import com.everdro1d.libs.commands.CommandManager;
@@ -11,9 +11,9 @@ import com.everdro1d.libs.locale.*;
 import com.everdro1d.libs.swing.*;
 import com.everdro1d.libs.swing.dialogs.UpdateCheckerDialog;
 import com.everdro1d.libs.swing.windows.DebugConsoleWindow;
-import main.com.everdro1d.whiskipedia.ui.MainWindow;
-import main.com.everdro1d.whiskipedia.core.commands.DebugCommand;
-import static main.com.everdro1d.whiskipedia.core.ButtonAction.settingsWindow;
+import com.everdro1d.whiskipedia.ui.MainWindow;
+import com.everdro1d.whiskipedia.core.commands.DebugCommand;
+import static com.everdro1d.whiskipedia.core.ButtonAction.settingsWindow;
 
 import javax.swing.*;
 import java.awt.*;
