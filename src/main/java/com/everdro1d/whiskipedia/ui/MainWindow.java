@@ -23,6 +23,7 @@ public class MainWindow extends JFrame {
     public static JFrame topFrame;
         private JPanel mainPanel;
             private JPanel northPanel;
+                private JLabel logoIconContainer;
                 private JLabel titleLabel;
                 private JButton settingsButton;
                 private JSeparator titleSeparator;
@@ -113,23 +114,26 @@ public class MainWindow extends JFrame {
             northGBC.gridy = 0;
             northGBC.weightx = 0;
             northGBC.weighty = 1;
-            northGBC.anchor = GridBagConstraints.CENTER;
-            northGBC.fill = GridBagConstraints.HORIZONTAL;
-            northGBC.insets = new Insets(4, 4, 4, 4);
+            northGBC.anchor = GridBagConstraints.LINE_START;
+            northGBC.fill = GridBagConstraints.VERTICAL;
+            northGBC.insets = new Insets(4, EDGE_PADDING, 4, 4);
             mainPanel.add(northPanel, BorderLayout.NORTH);
             {
-                // Add components to northPanel
-                JPanel spacer = new JPanel();
-                spacer.setMinimumSize(new Dimension(50, 50));
-                northPanel.add(spacer, northGBC);
+                logoIconContainer = new JLabel();
+                logoIconContainer.setPreferredSize(new Dimension(50, 50));
+                Icon logoIcon = SwingGUI.getApplicationIcon("images/logoIcon50.png", this.getClass());
+                logoIconContainer.setIcon(logoIcon);
+                logoIconContainer.setHorizontalAlignment(SwingConstants.CENTER);
+                northPanel.add(logoIconContainer, northGBC);
 
-                // Add title text
-                northGBC.gridx++; // increment gbc to second column
-                northGBC.weightx = 1; // fill as much horizontally as possible
+                northGBC.gridx++;
+                northGBC.weightx = 1;
+                northGBC.fill = GridBagConstraints.BOTH;
+                northGBC.insets = new Insets(4, 4, 4, 4);
 
                 titleLabel = new JLabel(titleText);
                 titleLabel.setFont(new Font(fontName, Font.BOLD, fontSize + 12));
-                titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
                 northPanel.add(titleLabel, northGBC);
 
                 // Add settings button
