@@ -5,6 +5,7 @@
 package com.everdro1d.whiskipedia.ui;
 
 import com.everdro1d.libs.swing.SwingGUI;
+import com.everdro1d.whiskipedia.ui.panels.RecipeListSearchPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +33,7 @@ public class MainWindow extends JFrame {
             private JPanel southPanel;
             private JPanel eastPanel;
             private JPanel westPanel;
-                private JPanel recipeListPanel;
+                private RecipeListSearchPanel recipeListPanel;
 
     // End of Swing components --------------------------------------------|
 
@@ -112,7 +113,7 @@ public class MainWindow extends JFrame {
         {
             northPanel = new JPanel();
             northPanel.setLayout(new GridBagLayout());
-            northPanel.setPreferredSize(new Dimension(MIN_WINDOW_WIDTH - (EDGE_PADDING * 2), 60));
+            northPanel.setPreferredSize(new Dimension(MIN_WINDOW_WIDTH - (EDGE_PADDING * 2), 70));
             if (guiDebugColoring) northPanel.setBackground(Color.BLACK);
             GridBagConstraints northGBC = new GridBagConstraints();
             // set defaults for gbc
@@ -230,9 +231,14 @@ public class MainWindow extends JFrame {
 
             westPanel = new JPanel();
             westPanel.setMinimumSize(new Dimension(EDGE_PADDING, 10));
+            westPanel.setBorder(BorderFactory.createEmptyBorder(0,EDGE_PADDING,0,0));
             if (guiDebugColoring) westPanel.setBackground(Color.RED);
             mainPanel.add(westPanel, BorderLayout.WEST);
             //TODO add placeholder recipeListPanel
+            {
+                recipeListPanel = new RecipeListSearchPanel();
+                westPanel.add(recipeListPanel);
+            }
         }
     }
 
