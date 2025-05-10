@@ -113,6 +113,7 @@ public class MainWindow extends JFrame {
             northPanel = new JPanel();
             northPanel.setLayout(new GridBagLayout());
             northPanel.setPreferredSize(new Dimension(MIN_WINDOW_WIDTH - (EDGE_PADDING * 2), 60));
+            if (guiDebugColoring) northPanel.setBackground(Color.BLACK);
             GridBagConstraints northGBC = new GridBagConstraints();
             // set defaults for gbc
             northGBC.gridx = 0;
