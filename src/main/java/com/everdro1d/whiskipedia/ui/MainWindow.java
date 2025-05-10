@@ -156,6 +156,7 @@ public class MainWindow extends JFrame {
                 northGBC.weightx = 0; // take up as little as possible horizontal fill space
                 northGBC.fill = GridBagConstraints.NONE; // dont try to autofill space
                 northGBC.anchor = GridBagConstraints.LINE_END; // anchor at the right-most corner
+                northGBC.insets = new Insets(4, 4, 4, EDGE_PADDING - 8);
 
                 settingsButton = new JButton();
                 settingsButton.setPreferredSize(new Dimension(50, 50));
