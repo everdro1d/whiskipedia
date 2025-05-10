@@ -173,10 +173,11 @@ public class MainWindow extends JFrame {
                 northGBC.weightx = 0; // this resets the gbc
                 northGBC.gridx = 0; // ^
                 northGBC.gridy++; // moves the gbc down a row
-                northGBC.gridwidth = 2; // number of columns the separator will take
+                northGBC.gridwidth = 3; // number of columns the separator will take
                 northGBC.weightx = 1.0; // horizontal area fill weight for the separator
                 northGBC.fill = GridBagConstraints.HORIZONTAL; // try to autofill the area
                 northGBC.anchor = GridBagConstraints.CENTER; // center the separator
+                northGBC.insets = new Insets(4, EDGE_PADDING, 4, EDGE_PADDING);
 
                 titleSeparator = new JSeparator();
                 titleSeparator.setPreferredSize(new Dimension(MIN_WINDOW_WIDTH - (EDGE_PADDING * 4), 4));
