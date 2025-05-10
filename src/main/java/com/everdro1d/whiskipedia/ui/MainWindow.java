@@ -252,6 +252,10 @@ public class MainWindow extends JFrame {
                 UIManager.getColor("RootPane.foreground")
         );
         settingsButton.setIcon(i);
+
+        recipeListPanel.getSearchBar().setForeground(
+                UIManager.getColor("RootPane.foreground")
+        );
     }
 
     public int getMinimumWindowWidth() {
