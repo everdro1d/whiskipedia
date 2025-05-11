@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="GUI Debug" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.everdro1d.whiskipedia.core.MainWorker" />
+    <module name="whiskipedia" />
+    <option name="PROGRAM_PARAMETERS" value="-debug --gui-debug" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
