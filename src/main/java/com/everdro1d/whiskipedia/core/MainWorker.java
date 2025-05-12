@@ -75,10 +75,7 @@ public class MainWorker {
         currentLocale = localeManager.getCurrentLocale();
 
         if (debug) {
-            showDebugConsole();
-            System.out.println("Loaded locale: " + currentLocale + " at: " + localeManager.getLocaleDirectoryPath());
-            System.out.println("Starting " + MainWindow.titleText + " v" + currentVersion + "...");
-            System.out.println("Detected OS: " + ApplicationCore.detectOS());
+            SwingUtilities.invokeLater(MainWorker::showDebugConsole);
         }
 
         // checkUpdate(); TODO: enable when ready for release
@@ -204,6 +201,9 @@ public class MainWorker {
             windowFrameArray[1] = debugConsoleWindow;
 
             if (debug) System.out.println("Debug console created.");
+            System.out.println("Current locale: " + currentLocale + " at: " + localeManager.getLocaleDirectoryPath());
+            System.out.println("Application: " + MainWindow.titleText + " v" + currentVersion);
+            System.out.println("Detected OS: " + MainWorker.detectedOS);
 
         } else if (!debugConsoleWindow.isVisible()) {
             debugConsoleWindow.setVisible(true);

@@ -35,12 +35,8 @@ public class ButtonAction {
                     debug = prefs.getBoolean("debug", debug);
                     darkMode = prefs.getBoolean("darkMode", darkMode);
 
-                    if (debug) {
-                        showDebugConsole();
-                        System.out.println("Active locale: " + currentLocale);
-                        System.out.println("Active: " + MainWindow.titleText + " v" + currentVersion);
-                        System.out.println("Detected OS: " + MainWorker.detectedOS);
-                    } else if (debugConsoleWindow != null) {
+                    if (debug) showDebugConsole();
+                    else if (debugConsoleWindow != null) {
                         debugConsoleWindow.dispose();
                         debugConsoleWindow = null;
                         windowFrameArray[1] = null;
