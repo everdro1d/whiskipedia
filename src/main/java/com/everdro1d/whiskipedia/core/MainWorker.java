@@ -65,9 +65,11 @@ public class MainWorker {
         ApplicationCore.checkCLIArgs(args, commandManager);
         checkOSCompatibility();
 
-        SwingGUI.setupLookAndFeel(true, true);
+        UIManager.put("Application.useContrastTitleBars", true);
 
-        SwingGUI.uiSetup(MainWindow.fontName, MainWindow.fontSize);
+        SwingGUI.setupLookAndFeel(true, true, prefs.getBoolean("darkMode", false));
+
+        SwingGUI.uiSetup(MainWindow.FONT);
 
         loadPreferencesAndQueueSave();
 
