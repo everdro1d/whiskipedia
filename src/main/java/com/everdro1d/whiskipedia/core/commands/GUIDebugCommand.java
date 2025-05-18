@@ -12,9 +12,19 @@ public class GUIDebugCommand implements CommandInterface {
     private String description = "color the main elements of the gui distinctly to assist in layout debugging";
 
     @Override
+    public int getExpectedArguments() {
+        return 0;
+    }
+
+    @Override
     public void execute(CommandManager commandManager) {
         MainWorker.guiDebugColoring = true;
         if (MainWorker.debug) System.out.println("GUI Debug mode enabled.");
+    }
+
+    @Override
+    public void execute(CommandManager commandManager, String[] args) {
+        // No arguments expected
     }
 
     @Override
