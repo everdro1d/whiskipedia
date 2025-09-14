@@ -84,7 +84,7 @@ public class RecipeWorker {
         return 0;
     }
 
-    private static String parseNameToID(String name) {
+    public static String parseNameToID(String name) {
         return name.toLowerCase().replaceAll("\\s+", "-");
     }
 
