@@ -159,7 +159,7 @@ public class RecipeWorker {
             return 4;
         }
 
-        // TODO: update trie file
+        saveRecipeTrie(true);
 
         com.everdro1d.libs.io.Files.saveMapToFile(directoryFilePath, populateDirectoryMap(r), true);
 
@@ -199,8 +199,11 @@ public class RecipeWorker {
         return 0;
     }
 
-    public static int saveRecipeTrie() { //TODO
-        if (Files.exists(Path.of(recipeRepositoryPath + File.separator + "recipeIDTrie.txt"))) return 1;
+    public static int saveRecipeTrie(boolean overwrite) {
+        if (!overwrite && Files.exists(Path.of(recipeRepositoryPath + File.separator + "recipeIDTrie.txt"))) {
+            if (debug) System.err.println("[saveRecipeTrie]: Recipe trie file exists and overwrite is disabled.");
+            return 1;
+        }
 
         List<String> keys = recipeIDTrie.listKeys();
 
