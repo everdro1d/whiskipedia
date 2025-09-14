@@ -62,6 +62,11 @@ public class RecipeWorker {
     }
 
     public static int createRecipe(String name) {
+        if (Files.notExists(Path.of(recipeRepositoryPath))) {
+            if (debug) System.err.println("Recipe repository does not exist. Creating repository in user home directory.");
+            setupRecipeRepository(); // TODO: move me to dedicated first start popup & move repo settings
+        }
+
         String recipeID = parseNameToID(name);
 
         if (recipeIDTrie.contains(recipeID)) {
