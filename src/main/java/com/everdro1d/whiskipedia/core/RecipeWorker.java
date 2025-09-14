@@ -88,13 +88,40 @@ public class RecipeWorker {
         return name.toLowerCase().replaceAll("\\s+", "-");
     }
 
-        // repo
-        // L recipe-trie.txt
-        // L RecipeID
-        // | L directory.txt - contains info & refs
-        // | L contents.md - contains description, ingredients, instructions - separate by "§§§"
-        // | L images - contains images
-        // | L files - contains additional files
+    private static RecipeObject loadRecipe(String recipeID) {
+        Path recipePath = Path.of(recipeRepositoryPath + File.separator + recipeID);
+        Path directoryFilePath = Path.of(recipePath + File.separator + "directory.txt");
+        Path contentsFilePath = Path.of(recipePath + File.separator + "contents.md");
+        Path imagesDirPath = Path.of(recipePath + File.separator + "images");
+        Path filesDirPath = Path.of(recipePath + File.separator + "files");
+
+        if (Files.notExists(recipePath) || Files.notExists(directoryFilePath) || Files.notExists(contentsFilePath)
+                || Files.notExists(imagesDirPath) || Files.notExists(filesDirPath)) {
+            if (debug) System.err.println("[loadRecipe]: Recipe could not be found.");
+            return null;
+        }
+
+        RecipeObject r = new RecipeObject();
+
+        loadDirectoryMap(directoryFilePath, r);
+
+        loadContentsFile(contentsFilePath, r);
+
+        // load images
+        List<Path> images = new ArrayList<>();
+        for (String f : com.everdro1d.libs.io.Files.getAllFilesInDirectory(imagesDirPath.toString())) {
+            images.add(Path.of(imagesDirPath + File.separator + f));
+        }
+        r.setImages(images.toArray(new Path[0]));
+
+        // load files
+        List<Path> files = new ArrayList<>();
+        for (String f : com.everdro1d.libs.io.Files.getAllFilesInDirectory(filesDirPath.toString())) {
+            files.add(Path.of(filesDirPath + File.separator + f));
+        }
+
+        return r;
+    }
 
     private static int saveRecipe(String recipeID, boolean overwrite) {
         Path recipePath = Path.of(recipeRepositoryPath + File.separator + recipeID);
