@@ -12,12 +12,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static com.everdro1d.whiskipedia.core.MainWorker.recipeRepositoryPath;
 
 public class RecipeWorker {
     static final String recipeRepositoryName = "recipe-repository";
 
     // TODO: Let user define repo path
-    private static String recipeRepositoryPath = System.getProperty("user.home") + File.separator + recipeRepositoryName;
 
     private static final Trie<RecipeObject> recipeIDTrie = new Trie<>();
 
