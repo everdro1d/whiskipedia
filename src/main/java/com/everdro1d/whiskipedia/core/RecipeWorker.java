@@ -234,6 +234,25 @@ public class RecipeWorker {
         return map;
     }
 
+    private static int loadDirectoryMap(Path directoryFilePath, RecipeObject r) {
+        Map<String, String> map = com.everdro1d.libs.io.Files.loadMapFromFile(directoryFilePath);
+        if (map == null) {
+            if (debug) System.err.println("[loadDirectoryMap]: Could not load directory map from file.");
+            return 1;
+        }
+
+        r.setName(map.get("name"));
+
+        r.setServingSize(map.get("servingSize"));
+        r.setNotes(map.get("notes"));
+        r.setSource(map.get("source"));
+
+        r.setTags(map.get("tags").replaceAll("[\\[\\]\\s]", "").split(","));
+        r.setCategories(map.get("categories").replaceAll("[\\[\\]\\s]", "").split(","));
+
+        return 0;
+    }
+
     public static int loadRecipeTrie() {
         // TODO
 
