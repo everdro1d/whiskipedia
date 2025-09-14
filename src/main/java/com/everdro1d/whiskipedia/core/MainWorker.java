@@ -63,6 +63,7 @@ public class MainWorker {
     public static void main(String[] args) {
         startUpActions(args);
         startMainWindow();
+        // TODO: read trie from repo root file
     }
 
     private static void startUpActions(String[] args) {
