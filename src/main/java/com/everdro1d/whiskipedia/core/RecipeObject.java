@@ -1,6 +1,7 @@
 package com.everdro1d.whiskipedia.core;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 
 public class RecipeObject {
     private String name;
@@ -57,9 +58,7 @@ public class RecipeObject {
         this.categories = categories;
     }
 
-    /**
-     * Test Recipe Object TODO: remove me
-     */
+    // Test Recipe Object TODO: remove me
     public RecipeObject() {
         this.name = "New Recipe";
         this.description = "Description\nA new line\n kachow";
@@ -77,6 +76,49 @@ public class RecipeObject {
 
         this.tags = new String[]{"a", "b", "c"};
         this.categories = new String[]{"d", "e", "f"};
+    }
+
+    public void print() {
+        System.out.printf(
+                """
+                ---%s---
+                --Desc--
+                %s
+                --instructions--
+                %s
+                --ingredients--
+                %s
+                --servings--
+                %s
+                --notes--
+                %s
+                --source--
+                %s
+                --preview--
+                %s
+                --images--
+                %s
+                --files--
+                %s
+                --tags--
+                %s
+                --categories--
+                %s
+                ---end recipe---
+                """,
+                this.name,
+                this.description,
+                this.instructions,
+                this.ingredients,
+                this.servingSize,
+                this.notes,
+                this.source,
+                this.previewImagePath,
+                Arrays.toString(this.images),
+                Arrays.toString(this.additionalFiles),
+                Arrays.toString(this.tags),
+                Arrays.toString(this.categories)
+        );
     }
 
     // Getters and Setters ----------------------------------------------------|
