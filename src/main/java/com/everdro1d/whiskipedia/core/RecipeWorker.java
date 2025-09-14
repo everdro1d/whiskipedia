@@ -131,15 +131,12 @@ public class RecipeWorker {
         Path filesDirPath = Path.of(recipePath + File.separator + "files");
 
         // check if file already exists
-        if (Files.exists(recipePath)) {
-            boolean overwrite = false;
-            // confirm overwrite
-
-            if (overwrite) {
-                // delete the dir
-            } else {
-                return 1;
-            }
+        if (Files.exists(recipePath) && !overwrite) {
+            if (debug) System.err.println("[saveRecipe]: Recipe already exists. No overwrite.");
+            return 1;
+        } else if (Files.exists(recipePath)) {
+            if (debug) System.out.println("[saveRecipe]: Recipe already exists. Overwriting.");
+            deleteRecipe(recipeID);
         }
 
         try {
