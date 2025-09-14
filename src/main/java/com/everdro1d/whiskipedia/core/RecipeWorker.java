@@ -282,8 +282,26 @@ public class RecipeWorker {
     }
 
     public static int loadRecipeTrie() {
-        // TODO
+        if (Files.notExists(Path.of(recipeRepositoryPath + File.separator + "recipeIDTrie.txt"))) {
+            if (debug) System.err.println("[loadRecipeTrie]: Recipe trie file does not exist.");
+            return 1;
+        }
 
+        List<String> keys;
+
+        try {
+            keys = Files.readAllLines(Path.of(recipeRepositoryPath + File.separator + "recipeIDTrie.txt"));
+        } catch (IOException e) {
+            if (debug) System.err.println("[loadRecipeTrie]: Could not load recipe trie file.");
+            return 2;
+        }
+
+        for (String key : keys) {
+            recipeIDTrie.insert(key, loadRecipe(key));
+            recipeIDTrie.get(key).print();
+        }
+
+        if (debug) System.out.println("[loadRecipeTrie]: Recipe trie loaded.");
         return 0;
     }
 
