@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RecipeWorker {
-    private static final String recipeRepositoryName = "recipe-repository";
+    static final String recipeRepositoryName = "recipe-repository";
+
     // TODO: Let user define repo path
     private static String recipeRepositoryPath = System.getProperty("user.home") + File.separator + recipeRepositoryName;
 
