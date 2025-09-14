@@ -15,9 +15,11 @@ import com.everdro1d.whiskipedia.core.commands.GUIDebugCommand;
 import com.everdro1d.whiskipedia.ui.MainWindow;
 import com.everdro1d.whiskipedia.core.commands.DebugCommand;
 import static com.everdro1d.whiskipedia.core.ButtonAction.settingsWindow;
+import static com.everdro1d.whiskipedia.core.RecipeWorker.recipeRepositoryName;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.prefs.Preferences;
@@ -58,12 +60,17 @@ public class MainWorker {
     public static String detectedOS;
     public static boolean darkMode = false;
 
+    /**
+     * Path to recipe repository. Defaults to "user.home".
+     */
+    public static String recipeRepositoryPath = System.getProperty("user.home") + File.separator + recipeRepositoryName;
+
+
     // End of variables -----------------------------------------------------------------------------------------------|
 
     public static void main(String[] args) {
         startUpActions(args);
         startMainWindow();
-        // TODO: read trie from repo root file
     }
 
     private static void startUpActions(String[] args) {
@@ -136,6 +143,10 @@ public class MainWorker {
         currentLocale = prefs.get("currentLocale", "eng");
         darkMode = prefs.getBoolean("darkMode", false);
 
+        recipeRepositoryPath = prefs.get("recipeRepositoryPath", recipeRepositoryPath);
+
+        RecipeWorker.loadRecipeTrie();
+
         savePreferencesOnExit();
     }
 
@@ -145,6 +156,8 @@ public class MainWorker {
 
             prefs.put("currentLocale", currentLocale);
             prefs.putBoolean("darkMode", darkMode);
+
+            prefs.put("recipeRepositoryPath", recipeRepositoryPath);
 
             ApplicationCore.saveConfigFile(MainWorker.class, developerConfigDirectoryName, prefs);
         }));
