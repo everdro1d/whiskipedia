@@ -253,6 +253,34 @@ public class RecipeWorker {
         return 0;
     }
 
+    private static int loadContentsFile(Path contentsFilePath, RecipeObject r) {
+        List<String> lines;
+        try {
+            lines = Files.readAllLines(contentsFilePath);
+        } catch (IOException e) {
+            if (debug) System.err.println("[loadContentsFile]: Could not load contents file.");
+            return 1;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String line : lines) {
+            sb.append(line).append(System.lineSeparator());
+        }
+
+        String[] parts = sb.toString().split("§§§", -1);
+        if (parts.length != 3) {
+            if (debug) System.err.println("[loadContentsFile]: Contents file number of parts invalid: " + parts.length);
+            return 2;
+        }
+
+        r.setDescription(parts[0].trim());
+        r.setInstructions(parts[1].trim());
+        r.setIngredients(parts[2].trim());
+
+        if (debug)  System.out.println("[loadContentsFile]: Contents file loaded.");
+        return 0;
+    }
+
     public static int loadRecipeTrie() {
         // TODO
 
