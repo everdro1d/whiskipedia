@@ -78,7 +78,7 @@ public class RecipeWorker {
 
         recipeIDTrie.insert(recipeID, newRecipe);
 
-        saveRecipeToRepository(recipeID);
+        saveRecipe(recipeID, false);
 
         if (debug) System.out.println("Created recipe with ID: " + recipeID);
         return 0;
@@ -88,7 +88,6 @@ public class RecipeWorker {
         return name.toLowerCase().replaceAll("\\s+", "-");
     }
 
-    private static int saveRecipeToRepository(String recipeID) {
         // repo
         // L recipe-trie.txt
         // L RecipeID
@@ -97,6 +96,7 @@ public class RecipeWorker {
         // | L images - contains images
         // | L files - contains additional files
 
+    private static int saveRecipe(String recipeID, boolean overwrite) {
         Path recipePath = Path.of(recipeRepositoryPath + File.separator + recipeID);
         Path recipeTriePath = Path.of(recipeRepositoryPath + File.separator + "recipeIDTrie.txt");
         Path directoryFilePath = Path.of(recipePath + File.separator + "directory.txt");
