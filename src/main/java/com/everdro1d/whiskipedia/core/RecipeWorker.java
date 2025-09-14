@@ -125,7 +125,6 @@ public class RecipeWorker {
 
     private static int saveRecipe(String recipeID, boolean overwrite) {
         Path recipePath = Path.of(recipeRepositoryPath + File.separator + recipeID);
-        Path recipeTriePath = Path.of(recipeRepositoryPath + File.separator + "recipeIDTrie.txt");
         Path directoryFilePath = Path.of(recipePath + File.separator + "directory.txt");
         Path contentsFilePath = Path.of(recipePath + File.separator + "contents.md");
         Path imagesDirPath = Path.of(recipePath + File.separator + "images");
