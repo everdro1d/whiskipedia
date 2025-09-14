@@ -173,6 +173,37 @@ public class RecipeWorker {
             return 5;
         }
 
+        // copy images to dir
+        for (Path image : r.getImages()) {
+            // skip if already in images folder
+            if (image.getParent().getFileName().toString().equals("images")) {
+                continue;
+            }
+
+            try {
+                Files.copy(image, imagesDirPath.resolve(image.getFileName()));
+            } catch (IOException e) {
+                if (debug) System.err.println("[saveRecipe]: Could not copy image file.");
+                return 6;
+            }
+        }
+
+        // copy files to dir
+        for (Path file : r.getAdditionalFiles()) {
+            // skip if already in files folder
+            if (file.getParent().getFileName().toString().equals("files")) {
+                continue;
+            }
+
+            try {
+                Files.copy(file, filesDirPath.resolve(file.getFileName()));
+            } catch (IOException e) {
+                if (debug) System.err.println("[saveRecipe]: Could not copy additional file.");
+                return 7;
+            }
+        }
+
+        if (debug) System.out.println("[saveRecipe]: Recipe saved.");
         return 0;
     }
 
