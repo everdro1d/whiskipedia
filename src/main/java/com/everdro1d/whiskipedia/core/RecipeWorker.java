@@ -8,11 +8,22 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
+
+import static com.everdro1d.libs.io.Files.copyDirectory;
+import static com.everdro1d.libs.io.Files.deleteDirectory;
+import static com.everdro1d.whiskipedia.core.MainWorker.debug;
 import static com.everdro1d.whiskipedia.core.MainWorker.recipeRepositoryPath;
+
+
+// repo
+// L recipe-trie.txt
+// L RecipeID
+// | L directory.txt - contains info & refs
+// | L contents.md - contains description, ingredients, instructions - separate by "§§§"
+// | L images - contains images
+// | L files - contains additional files
 
 public class RecipeWorker {
     static final String recipeRepositoryName = "recipe-repository";
@@ -25,8 +36,10 @@ public class RecipeWorker {
         try {
             Files.createDirectory(Path.of(recipeRepositoryPath));
         } catch (FileAlreadyExistsException e) {
+            if (debug) System.err.println("Recipe repository already exists!");
             return 1;
         } catch (IOException e1) {
+            if (debug) System.err.println("Recipe repository could not be created!");
             return 2;
         }
 
@@ -37,6 +50,7 @@ public class RecipeWorker {
         String recipeID = parseNameToID(name);
 
         if (recipeIDTrie.contains(recipeID)) {
+            if (debug) System.err.println("Recipe already exists with ID: " + recipeID);
             return 1;
         }
 
@@ -46,6 +60,7 @@ public class RecipeWorker {
 
         saveRecipeToRepository(recipeID);
 
+        if (debug) System.out.println("Created recipe with ID: " + recipeID);
         return 0;
     }
 
@@ -91,11 +106,15 @@ public class RecipeWorker {
             Files.createDirectory(filesDirPath);
 
         } catch (IOException e) {
+            if (debug) System.err.println("[saveRecipe]: Could not create directory.");
             return 3;
         }
 
         RecipeObject r = recipeIDTrie.get(recipeID);
-        if (r == null) return 4;
+        if (r == null) {
+            if (debug) System.err.println("[saveRecipe]: RecipeObject is null.");
+            return 4;
+        }
 
         // TODO: update trie file
 
@@ -105,6 +124,7 @@ public class RecipeWorker {
             wr.write(r.getDescription() + "§§§" + r.getInstructions() + "§§§" + r.getIngredients());
             wr.flush();
         } catch (IOException e) {
+            if (debug) System.err.println("[saveRecipe]: Could not save recipe contents file.");
             return 5;
         }
 
@@ -147,9 +167,11 @@ public class RecipeWorker {
             }
             wr.flush();
         } catch (IOException e) {
+            if (debug) System.err.println("[saveRecipeTrie]: Could not save recipe trie file.");
             return 2;
         }
 
+        if (debug) System.out.println("[saveRecipeTrie]: Recipe trie saved.");
         return 0;
     }
 }
