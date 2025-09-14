@@ -207,6 +207,18 @@ public class RecipeWorker {
         return 0;
     }
 
+    public static boolean deleteRecipe(String recipeID) {
+        String recipePath = recipeRepositoryPath + File.separator + recipeID;
+
+        deleteDirectory(recipePath);
+
+        recipeIDTrie.remove(recipeID);
+        saveRecipeTrie(true);
+
+        if (debug) System.out.println("[deleteRecipe]: Recipe deleted: " + recipeID);
+        return true;
+    }
+
     private static Map<String, String> populateDirectoryMap(RecipeObject r) {
         Map<String, String> map = new HashMap<>();
 
