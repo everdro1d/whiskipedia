@@ -161,8 +161,10 @@ public class RecipeWorker {
 
         saveRecipeTrie(true);
 
+        // save directory file
         com.everdro1d.libs.io.Files.saveMapToFile(directoryFilePath, populateDirectoryMap(r), true);
 
+        // save contents file
         try (FileWriter wr = new FileWriter(contentsFilePath.toString())) {
             wr.write(r.getDescription() + "§§§" + r.getInstructions() + "§§§" + r.getIngredients());
             wr.flush();
