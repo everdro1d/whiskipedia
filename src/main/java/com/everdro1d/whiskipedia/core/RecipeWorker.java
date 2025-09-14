@@ -223,10 +223,6 @@ public class RecipeWorker {
         Map<String, String> map = new HashMap<>();
 
         map.put("name", r.getName());
-        map.put("contentsFilePath", "contents.md");
-
-        map.put("imagesDirPath", "images");
-        map.put("filesDirPath", "files");
 
         map.put("servingSize", r.getServingSize());
         map.put("notes", r.getNotes());
