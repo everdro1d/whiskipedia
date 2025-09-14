@@ -46,6 +46,21 @@ public class RecipeWorker {
         return 0;
     }
 
+    public static int moveRecipeRepository(String newRecipeRepositoryPath) {
+        try {
+            copyDirectory(Path.of(recipeRepositoryPath), Path.of(newRecipeRepositoryPath));
+            deleteDirectory(recipeRepositoryPath);
+
+        } catch (IOException e) {
+            if (debug) System.err.println("Recipe repository could not be moved!");
+            return 1;
+        }
+
+        recipeRepositoryPath = newRecipeRepositoryPath;
+
+        return 0;
+    }
+
     public static int createRecipe(String name) {
         String recipeID = parseNameToID(name);
 
