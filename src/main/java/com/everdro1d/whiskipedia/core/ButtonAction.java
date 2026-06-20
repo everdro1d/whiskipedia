@@ -35,7 +35,10 @@ public class ButtonAction {
                     debug = prefs.getBoolean("debug", debug);
                     darkMode = prefs.getBoolean("darkMode", darkMode);
 
-                    RecipeWorker.moveRecipeRepository(prefs.get("recipeRepositoryPath", recipeRepositoryPath));
+                    if (!RecipeWorker.moveRecipeRepository(prefs.get("recipeRepositoryPath", recipeRepositoryPath))) {
+                        // upon failure, reset prefs (failure doesnt update the global path)
+                        prefs.put("recipeRepositoryPath", recipeRepositoryPath);
+                    }
 
                     if (debug) showDebugConsole();
                     else if (debugConsoleWindow != null) {
