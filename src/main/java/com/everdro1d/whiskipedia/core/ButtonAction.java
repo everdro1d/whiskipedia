@@ -35,6 +35,8 @@ public class ButtonAction {
                     debug = prefs.getBoolean("debug", debug);
                     darkMode = prefs.getBoolean("darkMode", darkMode);
 
+                    RecipeWorker.moveRecipeRepository(prefs.get("recipeRepositoryPath", recipeRepositoryPath));
+
                     if (debug) showDebugConsole();
                     else if (debugConsoleWindow != null) {
                         debugConsoleWindow.dispose();
@@ -51,6 +53,7 @@ public class ButtonAction {
 
                     originalSettingsMap.put("debug", String.valueOf(debug));
                     originalSettingsMap.put("darkMode", String.valueOf(darkMode));
+                    originalSettingsMap.put("recipeRepositoryPath", recipeRepositoryPath);
 
                     return originalSettingsMap;
                 }
@@ -61,6 +64,7 @@ public class ButtonAction {
 
                     restartRequiredSettingsMap.put("debug", false);
                     restartRequiredSettingsMap.put("darkMode", false);
+                    restartRequiredSettingsMap.put("recipeRepositoryPath", false);
 
                     return restartRequiredSettingsMap;
                 }

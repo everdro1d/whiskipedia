@@ -6,6 +6,8 @@ package com.everdro1d.whiskipedia.ui.panels;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -17,10 +19,16 @@ public class GeneralSettingsPanel extends JPanel {
     private final JLabel debugSwitchLabel;
     private String debugSwitchLabelText = "Enable Debug Mode:";
     private final JComboBox<String> debugSwitchComboBox;
+
     private final JLabel darkModeSwitchLabel;
     private String darkModeSwitchLabelText = "Enable Dark Mode:";
     private final JComboBox<String> darkModeSwitchComboBox;
+
     private String[] enableDisableSwitchOptions = {"Enabled", "Disabled"};
+
+    private final JLabel repositoryPathLabel;
+    private String repositoryPathLabelText = "Recipe Repository:";
+    private final JTextField repositoryPathTextField;
 
     public GeneralSettingsPanel() {
         localeCheck();
@@ -74,6 +82,30 @@ public class GeneralSettingsPanel extends JPanel {
                 prefs.putBoolean("darkMode", darkModeSwitchComboBox.getSelectedIndex() == 0);
             });
         }
+        // row 3
+        gbc.gridx = 0;
+        gbc.gridy++;
+        gbc.weightx = 0;
+        gbc.weighty = 1;
+        {
+            repositoryPathLabel = new JLabel(repositoryPathLabelText);
+            repositoryPathLabel.setFont(new Font(fontName, Font.PLAIN, fontSize));
+            add(repositoryPathLabel, gbc);
+
+            gbc.gridx++;
+            gbc.weightx = 1;
+            repositoryPathTextField = new JTextField(recipeRepositoryPath);
+            repositoryPathTextField.setFont(new Font(fontName, Font.PLAIN, fontSize));
+            add(repositoryPathTextField, gbc);
+
+            repositoryPathTextField.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    prefs.put("recipeRepositoryPath", repositoryPathTextField.getText());
+                }
+            });
+
+        }
     }
 
     private void localeCheck() {
@@ -90,6 +122,7 @@ public class GeneralSettingsPanel extends JPanel {
         Map<String,String> map = new TreeMap<>();
         map.put("debugSwitchLabelText", debugSwitchLabelText);
         map.put("darkModeSwitchLabelText", darkModeSwitchLabelText);
+        map.put("repositoryPathLabelText", repositoryPathLabelText);
 
         for (int i = 0; i < enableDisableSwitchOptions.length; i++) {
             map.put("enableDisableSwitchOptions"+i, enableDisableSwitchOptions[i]);
@@ -110,6 +143,7 @@ public class GeneralSettingsPanel extends JPanel {
 
         debugSwitchLabelText = varMap.get("debugSwitchLabelText");
         darkModeSwitchLabelText = varMap.get("darkModeSwitchLabelText");
+        repositoryPathLabelText = varMap.get("repositoryPathLabelText");
 
         for (int i = 0; i < enableDisableSwitchOptions.length; i++) {
             enableDisableSwitchOptions[i] = varMap.get("enableDisableSwitchOptions"+i);

@@ -25,7 +25,7 @@ import static com.everdro1d.whiskipedia.core.MainWorker.recipeRepositoryPath;
 // | L files - contains additional files
 
 public class RecipeWorker {
-    static final String recipeRepositoryName = "recipe-repository";
+    public static final String recipeRepositoryName = "recipe-repository";
 
     // TODO: Let user define repo path
 
@@ -45,7 +45,15 @@ public class RecipeWorker {
         return 0;
     }
 
-    public static boolean moveRecipeRepository(String newRecipeRepositoryPath) {
+    public static boolean moveRecipeRepository(String s) {
+        String newRecipeRepositoryPath;
+        if (!s.endsWith(recipeRepositoryName)) {
+            String sep = (s.endsWith(File.separator) ? "" : File.separator);
+            newRecipeRepositoryPath = s + sep + recipeRepositoryName;
+        } else {
+            newRecipeRepositoryPath = s;
+        }
+
         try {
             copyDirectory(Path.of(recipeRepositoryPath), Path.of(newRecipeRepositoryPath));
             deleteDirectory(recipeRepositoryPath);
@@ -54,6 +62,8 @@ public class RecipeWorker {
             if (debug) System.err.println("Recipe repository could not be moved!");
             return false;
         }
+
+        if (debug) System.out.println("Recipe repository moved: \"" + recipeRepositoryPath + "\" -> \"" + newRecipeRepositoryPath + "\"");
 
         recipeRepositoryPath = newRecipeRepositoryPath;
 
