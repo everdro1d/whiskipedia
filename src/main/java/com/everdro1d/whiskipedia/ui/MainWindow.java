@@ -29,12 +29,13 @@ public class MainWindow extends JFrame {
                 private JLabel titleLabel;
                 private JButton settingsButton;
                 private JSeparator titleSeparator;
-            private JPanel centerPanel;
-                private JPanel recipePanel;
+            private JSplitPane centerPanel;
+                private RecipeListSearchPanel recipeListPanel;
+                private JScrollPane recipeScrollPane;
+                    private JPanel recipePanel;
             private JPanel southPanel;
             private JPanel eastPanel;
             private JPanel westPanel;
-                private RecipeListSearchPanel recipeListPanel;
 
     // End of Swing components --------------------------------------------|
 
@@ -185,27 +186,22 @@ public class MainWindow extends JFrame {
                 northPanel.add(titleSeparator, northGBC);
             }
 
-            centerPanel = new JPanel();
-            centerPanel.setLayout(new GridBagLayout());
-            GridBagConstraints centerGBC = new GridBagConstraints();
-            centerGBC.gridx = 0;
-            centerGBC.gridy = 0;
-            centerGBC.weightx = 0;
-            centerGBC.weighty = 1;
-            centerGBC.anchor = GridBagConstraints.CENTER;
-            centerGBC.fill = GridBagConstraints.HORIZONTAL;
-            centerGBC.insets = new Insets(4, 4, 4, 4);
+            centerPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
             mainPanel.add(centerPanel, BorderLayout.CENTER);
             {
-                // Add recipe panel
-                centerGBC.gridx++;
-                centerGBC.weightx = 1;
-                centerGBC.fill = GridBagConstraints.BOTH;
+                recipeListPanel = new RecipeListSearchPanel();
+                centerPanel.setLeftComponent(recipeListPanel);
 
-                recipePanel = new JPanel();
+                recipeScrollPane = new JScrollPane(recipePanel = new JPanel());
+                recipeScrollPane.setMinimumSize(new Dimension(500, 300));
+                recipeScrollPane.setBorder(BorderFactory.createTitledBorder("Recipe Details"));
                 recipePanel.setLayout(new BorderLayout());
                 if (guiDebugColoring) recipePanel.setBackground(Color.BLUE);
-                centerPanel.add(recipePanel, centerGBC);
+                centerPanel.setRightComponent(recipeScrollPane);
+                {
+                    // actually the contents of recipe panel
+                    // TODO
+                }
             }
 
             southPanel = new JPanel();
@@ -234,14 +230,8 @@ public class MainWindow extends JFrame {
 
             westPanel = new JPanel();
             westPanel.setMinimumSize(new Dimension(EDGE_PADDING, 10));
-            westPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
             if (guiDebugColoring) westPanel.setBackground(Color.RED);
             mainPanel.add(westPanel, BorderLayout.WEST);
-            //TODO add placeholder recipeListPanel
-            {
-                recipeListPanel = new RecipeListSearchPanel();
-                westPanel.add(recipeListPanel);
-            }
         }
     }
 
@@ -265,5 +255,13 @@ public class MainWindow extends JFrame {
 
     public int getMinimumWindowHeight() {
         return MIN_WINDOW_HEIGHT;
+    }
+
+    public int getCenterPanelDividerLocation() {
+        return centerPanel.getDividerLocation();
+    }
+
+    public void setCenterPanelDividerLocation(int l) {
+        centerPanel.setDividerLocation(l);
     }
 }

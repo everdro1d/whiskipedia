@@ -47,6 +47,7 @@ public class MainWorker {
     public static DebugConsoleWindow debugConsoleWindow;
     public static final Preferences prefs = Preferences.userNodeForPackage(MainWorker.class);
     public static int[] windowPosition = {0, 0, 0};
+    public static int centerPanelDividerLocation;
     public static Dimension windowSize = new Dimension();
     private static MainWindow mainWindow;
     public static JFrame[] windowFrameArray = new JFrame[]{
@@ -97,6 +98,8 @@ public class MainWorker {
         if (!localeManager.getClassesInLocaleMap().contains("!head")) {
             addVersionToLocale();
         }
+
+        RecipeWorker.loadRecipeTrie();
     }
 
     private static void addVersionToLocale() {
@@ -140,12 +143,12 @@ public class MainWorker {
 
         loadWindowPosition();
 
+        centerPanelDividerLocation = prefs.getInt("dividerLocation", 250);
+
         currentLocale = prefs.get("currentLocale", "eng");
         darkMode = prefs.getBoolean("darkMode", false);
 
         recipeRepositoryPath = prefs.get("recipeRepositoryPath", recipeRepositoryPath);
-
-        RecipeWorker.loadRecipeTrie();
 
         savePreferencesOnExit();
     }
@@ -153,6 +156,8 @@ public class MainWorker {
     private static void savePreferencesOnExit() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             saveWindowPosition();
+
+            prefs.putInt("dividerLocation", mainWindow.getCenterPanelDividerLocation());
 
             prefs.put("currentLocale", currentLocale);
             prefs.putBoolean("darkMode", darkMode);
@@ -190,6 +195,8 @@ public class MainWorker {
                         windowPosition[1],
                         windowPosition[2]
                 );
+
+                mainWindow.setCenterPanelDividerLocation(centerPanelDividerLocation);
 
                 windowSize.setSize(
                         prefs.getInt("windowWidth", mainWindow.getMinimumWindowWidth()),

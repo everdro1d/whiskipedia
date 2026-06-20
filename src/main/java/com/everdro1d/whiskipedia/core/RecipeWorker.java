@@ -326,4 +326,11 @@ public class RecipeWorker {
         if (debug) System.out.println("[saveRecipeTrie]: Recipe trie saved.");
         return 0;
     }
+
+    // --- Getters & Setters ---
+
+
+    public static Trie<RecipeObject> getRecipeIDTrie() {
+        return recipeIDTrie;
+    }
 }
