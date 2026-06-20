@@ -298,7 +298,7 @@ public class RecipeWorker {
 
         for (String key : keys) {
             recipeIDTrie.insert(key, loadRecipe(key));
-            recipeIDTrie.get(key).print();
+            if (debug) recipeIDTrie.get(key).print();
         }
 
         if (debug) System.out.println("[loadRecipeTrie]: Recipe trie loaded.");
