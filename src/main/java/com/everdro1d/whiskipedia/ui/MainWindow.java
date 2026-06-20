@@ -41,6 +41,7 @@ public class MainWindow extends JFrame {
 
     // UI Text Defaults ---------------------------------------------------|
     public static String titleText = "Whiskipedia";
+    private String recipeDetailsTitleText = "Recipe Details";
     // End of UI Text Defaults --------------------------------------------|
 
     // NOTE: font name and size for the application
@@ -78,6 +79,7 @@ public class MainWindow extends JFrame {
         map.put("Main", new TreeMap<>());
         Map<String, String> mainMap = map.get("Main");
         mainMap.put("titleText", titleText);
+        mainMap.put("recipeDetailsTitleText", recipeDetailsTitleText);
 
         localeManager.addClassSpecificMap("MainWindow", map);
     }
@@ -85,6 +87,7 @@ public class MainWindow extends JFrame {
     private void useLocale() {
         Map<String, String> varMap = localeManager.getAllVariablesWithinClassSpecificMap("MainWindow");
         titleText = varMap.getOrDefault("titleText", titleText);
+        recipeDetailsTitleText = varMap.getOrDefault("recipeDetailsTitleText", recipeDetailsTitleText);
     }
 
     private void initializeWindowProperties() {
@@ -195,7 +198,7 @@ public class MainWindow extends JFrame {
 
                 recipeScrollPane = new JScrollPane(recipePanel = new JPanel());
                 recipeScrollPane.setMinimumSize(new Dimension(500, 300));
-                recipeScrollPane.setBorder(BorderFactory.createTitledBorder("Recipe Details"));
+                recipeScrollPane.setBorder(BorderFactory.createTitledBorder(recipeDetailsTitleText));
                 recipePanel.setLayout(new BorderLayout());
                 if (guiDebugColoring) recipePanel.setBackground(Color.BLUE);
                 centerPanel.setRightComponent(recipeScrollPane);

@@ -27,6 +27,10 @@ public class RecipeListSearchPanel extends JPanel {
 
     private final int MIN_PANEL_WIDTH = 180;
 
+    // UI Text Defaults ---
+    private String searchBarDefaultText = "Search Recipes";
+    private String recipeListTitleText = "Recipe List";
+
     public RecipeListSearchPanel() {
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")
                 || !localeManager.getComponentsInClassMap("MainWindow")
@@ -41,6 +45,9 @@ public class RecipeListSearchPanel extends JPanel {
 
     private void addComponentToLocale() {
         Map<String, String> map = new TreeMap<>();
+        map.put("searchBarDefaultText", searchBarDefaultText);
+        map.put("recipeListTitleText", recipeListTitleText);
+
 
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")) {
             localeManager.addClassSpecificMap("MainWindow", new TreeMap<>());
@@ -51,13 +58,14 @@ public class RecipeListSearchPanel extends JPanel {
 
     private void useLocale() {
         Map<String, String> varMap = localeManager.getComponentSpecificMap("MainWindow", "RecipeListSearchPanel");
-
+        searchBarDefaultText = varMap.getOrDefault("searchBarDefaultText", searchBarDefaultText);
+        recipeListTitleText = varMap.getOrDefault("recipeListTitleText", recipeListTitleText);
     }
 
     private void initializeGUIComponents() {
         this.setLayout(new BorderLayout());
         this.setMinimumSize(new Dimension(MIN_PANEL_WIDTH, 100));
-        this.setBorder(BorderFactory.createTitledBorder("Recipe List"));
+        this.setBorder(BorderFactory.createTitledBorder(recipeListTitleText));
 
         listUtilsPanel = new JPanel();
         listUtilsPanel.setLayout(new BoxLayout(listUtilsPanel, BoxLayout.Y_AXIS));
@@ -82,7 +90,7 @@ public class RecipeListSearchPanel extends JPanel {
                 // TODO add buttons for sorting and filtering (asc, desc..., type of dish, etc.)
             }
 
-            searchBar = new LabeledTextField("Search Recipes");
+            searchBar = new LabeledTextField(searchBarDefaultText);
             searchBar.setFont(MainWindow.FONT);
             listUtilsPanel.add(searchBar);
             // TODO update search for desc, tag, category, etc search
