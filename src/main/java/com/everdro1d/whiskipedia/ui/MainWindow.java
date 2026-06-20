@@ -117,17 +117,18 @@ public class MainWindow extends JFrame {
             northPanel.setLayout(new GridBagLayout());
             northPanel.setPreferredSize(new Dimension(MIN_WINDOW_WIDTH - (EDGE_PADDING * 2), 70));
             if (guiDebugColoring) northPanel.setBackground(Color.BLACK);
-            GridBagConstraints northGBC = new GridBagConstraints();
-            // set defaults for gbc
-            northGBC.gridx = 0;
-            northGBC.gridy = 0;
-            northGBC.weightx = 0;
-            northGBC.weighty = 1;
-            northGBC.anchor = GridBagConstraints.LINE_START;
-            northGBC.fill = GridBagConstraints.VERTICAL;
-            northGBC.insets = new Insets(4, EDGE_PADDING, 4, 4);
             mainPanel.add(northPanel, BorderLayout.NORTH);
             {
+                GridBagConstraints northGBC = new GridBagConstraints();
+                // set defaults for gbc
+                northGBC.gridx = 0;
+                northGBC.gridy = 0;
+                northGBC.weightx = 0;
+                northGBC.weighty = 1;
+                northGBC.anchor = GridBagConstraints.LINE_START;
+                northGBC.fill = GridBagConstraints.VERTICAL;
+                northGBC.insets = new Insets(4, EDGE_PADDING, 4, 4);
+
                 logoIconContainer = new JLabel();
                 logoIconContainer.setPreferredSize(new Dimension(50, 50));
                 Icon logoIcon = ImageUtils.getApplicationIcon("images/logoIcon50.png", this.getClass());
@@ -206,16 +207,17 @@ public class MainWindow extends JFrame {
 
             southPanel = new JPanel();
             southPanel.setLayout(new GridBagLayout());
-            GridBagConstraints southGBC = new GridBagConstraints();
-            southGBC.gridx = 0;
-            southGBC.gridy = 0;
-            southGBC.weightx = 0;
-            southGBC.weighty = 1;
-            southGBC.anchor = GridBagConstraints.CENTER;
-            southGBC.fill = GridBagConstraints.HORIZONTAL;
-            southGBC.insets = new Insets(4, 4, 4, 4);
             mainPanel.add(southPanel, BorderLayout.SOUTH);
             {
+                GridBagConstraints southGBC = new GridBagConstraints();
+                southGBC.gridx = 0;
+                southGBC.gridy = 0;
+                southGBC.weightx = 0;
+                southGBC.weighty = 1;
+                southGBC.anchor = GridBagConstraints.CENTER;
+                southGBC.fill = GridBagConstraints.HORIZONTAL;
+                southGBC.insets = new Insets(4, 4, 4, 4);
+
                 // Add components to southPanel
                 JPanel spacer = new JPanel();
                 spacer.setMinimumSize(new Dimension(50, 50));
