@@ -166,7 +166,7 @@ public class RecipeWorker {
 
         // save contents file
         try (FileWriter wr = new FileWriter(contentsFilePath.toString())) {
-            wr.write(r.getDescription() + "§§§" + r.getInstructions() + "§§§" + r.getIngredients());
+            wr.write(r.getDescription() + "\n§§§\n" + r.getInstructions() + "\n§§§\n" + r.getIngredients());
             wr.flush();
         } catch (IOException e) {
             if (debug) System.err.println("[saveRecipe]: Could not save recipe contents file.");
