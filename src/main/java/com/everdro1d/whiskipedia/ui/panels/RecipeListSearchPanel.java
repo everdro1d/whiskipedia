@@ -21,15 +21,19 @@ public class RecipeListSearchPanel extends JPanel {
     private JPanel listUtilsPanel;
         private JPanel listUtilsMenuBar;
         private LabeledTextField searchBar;
-    private JScrollPane listScrollPane;
-        private DefaultListModel<String> recipeListModel;
-        private JList<String> recipeDisplayList;
+    private JPanel listCardContainer;
+        private CardLayout listCardLayout;
+        private JScrollPane listScrollPane;
+            private DefaultListModel<String> recipeListModel;
+            private JList<String> recipeDisplayList;
+        private JLabel listEmptyLabel;
 
     private final int MIN_PANEL_WIDTH = 180;
 
     // UI Text Defaults ---
     private String searchBarDefaultText = "Search Recipes";
     private String recipeListTitleText = "Recipe List";
+    private String listEmptyLabelText = "No Recipes Found";
 
     public RecipeListSearchPanel() {
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")
@@ -47,6 +51,7 @@ public class RecipeListSearchPanel extends JPanel {
         Map<String, String> map = new TreeMap<>();
         map.put("searchBarDefaultText", searchBarDefaultText);
         map.put("recipeListTitleText", recipeListTitleText);
+        map.put("listEmptyLabelText", listEmptyLabelText);
 
 
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")) {
@@ -60,6 +65,8 @@ public class RecipeListSearchPanel extends JPanel {
         Map<String, String> varMap = localeManager.getComponentSpecificMap("MainWindow", "RecipeListSearchPanel");
         searchBarDefaultText = varMap.getOrDefault("searchBarDefaultText", searchBarDefaultText);
         recipeListTitleText = varMap.getOrDefault("recipeListTitleText", recipeListTitleText);
+        listEmptyLabelText = varMap.getOrDefault("listEmptyLabelText", listEmptyLabelText);
+
     }
 
     private void initializeGUIComponents() {
@@ -118,6 +125,7 @@ public class RecipeListSearchPanel extends JPanel {
         }
 
         recipeListModel = new DefaultListModel<String>();
+
         listScrollPane = new JScrollPane(recipeDisplayList = new JList<String>(recipeListModel));
         listScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         listScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -128,11 +136,21 @@ public class RecipeListSearchPanel extends JPanel {
         recipeDisplayList.setLayoutOrientation(JList.VERTICAL);
         recipeDisplayList.setVisibleRowCount(-1);
         recipeDisplayList.setSelectedIndex(0);
+        recipeDisplayList.ensureIndexIsVisible(0);
         if (guiDebugColoring) recipeDisplayList.setBackground(Color.ORANGE);
 
-        this.add(listScrollPane, BorderLayout.CENTER);
+        listEmptyLabel = new JLabel(listEmptyLabelText);
+        listEmptyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        listEmptyLabel.setVerticalAlignment(SwingConstants.TOP);
+        listEmptyLabel.setFont(MainWindow.FONT);
+
+        listCardLayout = new CardLayout();
+        listCardContainer = new JPanel(listCardLayout);
+        listCardContainer.add(listScrollPane, "LIST");
+        listCardContainer.add(listEmptyLabel, "EMPTY");
+
+        this.add(listCardContainer, BorderLayout.CENTER);
         {
-            // TODO add display functionality
             displayRecipeList();
             // TODO addListSelectionListener
             // https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
@@ -148,6 +166,13 @@ public class RecipeListSearchPanel extends JPanel {
 
         if (matches == null) {
             matches = recipes.listKeys();
+        }
+
+        if (matches.isEmpty()) {
+            listCardLayout.show(listCardContainer, "EMPTY");
+            return;
+        } else {
+            listCardLayout.show(listCardContainer, "LIST");
         }
 
         recipeListModel.removeAllElements();
