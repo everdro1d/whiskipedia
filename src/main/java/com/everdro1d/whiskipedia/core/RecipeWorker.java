@@ -19,8 +19,8 @@ import static com.everdro1d.whiskipedia.core.MainWorker.recipeRepositoryPath;
 // repo
 // L recipe-trie.txt
 // L <RecipeID>
-// | L directory.txt - contains info & refs
-// | L contents.md - contains description, ingredients, instructions - separate by "\n§§§\n"
+// | L meta.txt - contains info & refs
+// | L content.md - contains description, ingredients, instructions - separate by "\n§§§\n"
 // | L images - contains images
 // | L files - contains additional files
 
@@ -90,12 +90,12 @@ public class RecipeWorker {
 
     private static RecipeObject loadRecipe(String recipeID) {
         Path recipePath = Path.of(recipeRepositoryPath + File.separator + recipeID);
-        Path directoryFilePath = Path.of(recipePath + File.separator + "directory.txt");
-        Path contentsFilePath = Path.of(recipePath + File.separator + "contents.md");
+        Path metaFilePath = Path.of(recipePath + File.separator + "meta.txt");
+        Path contentFilePath = Path.of(recipePath + File.separator + "content.md");
         Path imagesDirPath = Path.of(recipePath + File.separator + "images");
         Path filesDirPath = Path.of(recipePath + File.separator + "files");
 
-        if (Files.notExists(recipePath) || Files.notExists(directoryFilePath) || Files.notExists(contentsFilePath)
+        if (Files.notExists(recipePath) || Files.notExists(metaFilePath) || Files.notExists(contentFilePath)
                 || Files.notExists(imagesDirPath) || Files.notExists(filesDirPath)) {
             if (debug) System.err.println("[loadRecipe]: Recipe could not be found.");
             return null;
@@ -103,9 +103,9 @@ public class RecipeWorker {
 
         RecipeObject r = new RecipeObject();
 
-        loadDirectoryMap(directoryFilePath, r);
+        loadMetaMapFromFile(metaFilePath, r);
 
-        loadContentsFile(contentsFilePath, r);
+        loadContentFile(contentFilePath, r);
 
         // load images
         List<Path> images = new ArrayList<>();
@@ -125,8 +125,8 @@ public class RecipeWorker {
 
     private static int saveRecipe(String recipeID, boolean overwrite) {
         Path recipePath = Path.of(recipeRepositoryPath + File.separator + recipeID);
-        Path directoryFilePath = Path.of(recipePath + File.separator + "directory.txt");
-        Path contentsFilePath = Path.of(recipePath + File.separator + "contents.md");
+        Path metaFilePath = Path.of(recipePath + File.separator + "meta.txt");
+        Path contentFilePath = Path.of(recipePath + File.separator + "content.md");
         Path imagesDirPath = Path.of(recipePath + File.separator + "images");
         Path filesDirPath = Path.of(recipePath + File.separator + "files");
 
@@ -142,8 +142,8 @@ public class RecipeWorker {
         try {
             Files.createDirectory(recipePath);
 
-            Files.createFile(directoryFilePath);
-            Files.createFile(contentsFilePath);
+            Files.createFile(metaFilePath);
+            Files.createFile(contentFilePath);
 
             Files.createDirectory(imagesDirPath);
             Files.createDirectory(filesDirPath);
@@ -161,11 +161,11 @@ public class RecipeWorker {
 
         saveRecipeTrie(true);
 
-        // save directory file
-        com.everdro1d.libs.io.Files.saveMapToFile(directoryFilePath, populateDirectoryMap(r), true);
+        // save meta file
+        com.everdro1d.libs.io.Files.saveMapToFile(metaFilePath, populateMetaMap(r), true);
 
-        // save contents file
-        try (FileWriter wr = new FileWriter(contentsFilePath.toString())) {
+        // save content file
+        try (FileWriter wr = new FileWriter(contentFilePath.toString())) {
             wr.write(r.getDescription() + "\n§§§\n" + r.getInstructions() + "\n§§§\n" + r.getIngredients());
             wr.flush();
         } catch (IOException e) {
@@ -219,7 +219,7 @@ public class RecipeWorker {
         return true;
     }
 
-    private static Map<String, String> populateDirectoryMap(RecipeObject r) {
+    private static Map<String, String> populateMetaMap(RecipeObject r) {
         Map<String, String> map = new HashMap<>();
 
         map.put("name", r.getName());
@@ -234,10 +234,10 @@ public class RecipeWorker {
         return map;
     }
 
-    private static boolean loadDirectoryMap(Path directoryFilePath, RecipeObject r) {
-        Map<String, String> map = com.everdro1d.libs.io.Files.loadMapFromFile(directoryFilePath);
+    private static boolean loadMetaMapFromFile(Path metaFilePath, RecipeObject r) {
+        Map<String, String> map = com.everdro1d.libs.io.Files.loadMapFromFile(metaFilePath);
         if (map == null) {
-            if (debug) System.err.println("[loadDirectoryMap]: Could not load directory map from file.");
+            if (debug) System.err.println("[loadMetaMapFromFile]: Could not load metadata map from file.");
             return false;
         }
 
@@ -253,12 +253,12 @@ public class RecipeWorker {
         return true;
     }
 
-    private static boolean loadContentsFile(Path contentsFilePath, RecipeObject r) {
+    private static boolean loadContentFile(Path contentsFilePath, RecipeObject r) {
         List<String> lines;
         try {
             lines = Files.readAllLines(contentsFilePath);
         } catch (IOException e) {
-            if (debug) System.err.println("[loadContentsFile]: Could not load contents file.");
+            if (debug) System.err.println("[loadContentFile]: Could not load content file.");
             return false;
         }
 
@@ -269,7 +269,7 @@ public class RecipeWorker {
 
         String[] parts = sb.toString().split("§§§", -1);
         if (parts.length != 3) {
-            if (debug) System.err.println("[loadContentsFile]: Contents file number of parts invalid: " + parts.length);
+            if (debug) System.err.println("[loadContentFile]: Contents file number of parts invalid: " + parts.length);
             return false;
         }
 
@@ -277,7 +277,7 @@ public class RecipeWorker {
         r.setInstructions(parts[1].trim());
         r.setIngredients(parts[2].trim());
 
-        if (debug)  System.out.println("[loadContentsFile]: Contents file loaded.");
+        if (debug)  System.out.println("[loadContentFile]: Contents file loaded.");
         return true;
     }
 
