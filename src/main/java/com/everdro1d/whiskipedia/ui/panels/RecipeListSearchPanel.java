@@ -73,11 +73,13 @@ public class RecipeListSearchPanel extends JPanel {
                 GridBagConstraints c = new GridBagConstraints();
                 c.gridx = 0;
                 c.gridy = 0;
-                // TODO
+                // TODO finish gbc
 
                 JButton placeholder = new JButton();
                 placeholder.setPreferredSize(new Dimension(20, 20));
                 listUtilsMenuBar.add(placeholder);
+
+                // TODO add buttons for sorting and filtering (asc, desc..., type of dish, etc.)
             }
 
             searchBar = new LabeledTextField("Search Recipes");

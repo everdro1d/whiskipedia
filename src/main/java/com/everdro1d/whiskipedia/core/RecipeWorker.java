@@ -9,7 +9,6 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.Stream;
 
 import static com.everdro1d.libs.io.Files.copyDirectory;
 import static com.everdro1d.libs.io.Files.deleteDirectory;
@@ -19,9 +18,9 @@ import static com.everdro1d.whiskipedia.core.MainWorker.recipeRepositoryPath;
 
 // repo
 // L recipe-trie.txt
-// L RecipeID
+// L <RecipeID>
 // | L directory.txt - contains info & refs
-// | L contents.md - contains description, ingredients, instructions - separate by "§§§"
+// | L contents.md - contains description, ingredients, instructions - separate by "\n§§§\n"
 // | L images - contains images
 // | L files - contains additional files
 
@@ -74,6 +73,7 @@ public class RecipeWorker {
             return 1;
         }
 
+        // TODO probably good to call up a dialog here
         RecipeObject newRecipe = new RecipeObject();
 
         recipeIDTrie.insert(recipeID, newRecipe);
