@@ -154,6 +154,7 @@ public class RecipeListSearchPanel extends JPanel {
 
         for (String match : matches) {
             RecipeObject r = recipes.get(match);
+            if (r == null) continue;
             String n = r.getName();
             recipeListModel.addElement(n.isEmpty() ? match : n);
         }
