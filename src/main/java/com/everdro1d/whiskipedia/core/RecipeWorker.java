@@ -45,22 +45,22 @@ public class RecipeWorker {
         return 0;
     }
 
-    public static int moveRecipeRepository(String newRecipeRepositoryPath) {
+    public static boolean moveRecipeRepository(String newRecipeRepositoryPath) {
         try {
             copyDirectory(Path.of(recipeRepositoryPath), Path.of(newRecipeRepositoryPath));
             deleteDirectory(recipeRepositoryPath);
 
         } catch (IOException e) {
             if (debug) System.err.println("Recipe repository could not be moved!");
-            return 1;
+            return false;
         }
 
         recipeRepositoryPath = newRecipeRepositoryPath;
 
-        return 0;
+        return true;
     }
 
-    public static int createRecipe(String name) {
+    public static boolean createRecipe(String name) {
         if (Files.notExists(Path.of(recipeRepositoryPath))) {
             if (debug) System.err.println("Recipe repository does not exist. Creating repository in user home directory.");
             setupRecipeRepository(); // TODO: move me to dedicated first start popup & move repo settings
@@ -70,7 +70,7 @@ public class RecipeWorker {
 
         if (recipeIDTrie.contains(recipeID)) {
             if (debug) System.err.println("Recipe already exists with ID: " + recipeID);
-            return 1;
+            return false;
         }
 
         // TODO probably good to call up a dialog here
@@ -81,7 +81,7 @@ public class RecipeWorker {
         saveRecipe(recipeID, false);
 
         if (debug) System.out.println("Created recipe with ID: " + recipeID);
-        return 0;
+        return true;
     }
 
     public static String parseNameToID(String name) {
@@ -234,11 +234,11 @@ public class RecipeWorker {
         return map;
     }
 
-    private static int loadDirectoryMap(Path directoryFilePath, RecipeObject r) {
+    private static boolean loadDirectoryMap(Path directoryFilePath, RecipeObject r) {
         Map<String, String> map = com.everdro1d.libs.io.Files.loadMapFromFile(directoryFilePath);
         if (map == null) {
             if (debug) System.err.println("[loadDirectoryMap]: Could not load directory map from file.");
-            return 1;
+            return false;
         }
 
         r.setName(map.get("name"));
@@ -250,16 +250,16 @@ public class RecipeWorker {
         r.setTags(map.get("tags").replaceAll("[\\[\\]\\s]", "").split(","));
         r.setCategories(map.get("categories").replaceAll("[\\[\\]\\s]", "").split(","));
 
-        return 0;
+        return true;
     }
 
-    private static int loadContentsFile(Path contentsFilePath, RecipeObject r) {
+    private static boolean loadContentsFile(Path contentsFilePath, RecipeObject r) {
         List<String> lines;
         try {
             lines = Files.readAllLines(contentsFilePath);
         } catch (IOException e) {
             if (debug) System.err.println("[loadContentsFile]: Could not load contents file.");
-            return 1;
+            return false;
         }
 
         StringBuilder sb = new StringBuilder();
@@ -270,7 +270,7 @@ public class RecipeWorker {
         String[] parts = sb.toString().split("§§§", -1);
         if (parts.length != 3) {
             if (debug) System.err.println("[loadContentsFile]: Contents file number of parts invalid: " + parts.length);
-            return 2;
+            return false;
         }
 
         r.setDescription(parts[0].trim());
@@ -278,13 +278,13 @@ public class RecipeWorker {
         r.setIngredients(parts[2].trim());
 
         if (debug)  System.out.println("[loadContentsFile]: Contents file loaded.");
-        return 0;
+        return true;
     }
 
-    public static int loadRecipeTrie() {
+    public static boolean loadRecipeTrie() {
         if (Files.notExists(Path.of(recipeRepositoryPath + File.separator + "recipeIDTrie.txt"))) {
             if (debug) System.err.println("[loadRecipeTrie]: Recipe trie file does not exist.");
-            return 1;
+            return false;
         }
 
         List<String> keys;
@@ -293,7 +293,7 @@ public class RecipeWorker {
             keys = Files.readAllLines(Path.of(recipeRepositoryPath + File.separator + "recipeIDTrie.txt"));
         } catch (IOException e) {
             if (debug) System.err.println("[loadRecipeTrie]: Could not load recipe trie file.");
-            return 2;
+            return false;
         }
 
         for (String key : keys) {
@@ -302,13 +302,13 @@ public class RecipeWorker {
         }
 
         if (debug) System.out.println("[loadRecipeTrie]: Recipe trie loaded.");
-        return 0;
+        return true;
     }
 
-    public static int saveRecipeTrie(boolean overwrite) {
+    public static boolean saveRecipeTrie(boolean overwrite) {
         if (!overwrite && Files.exists(Path.of(recipeRepositoryPath + File.separator + "recipeIDTrie.txt"))) {
             if (debug) System.err.println("[saveRecipeTrie]: Recipe trie file exists and overwrite is disabled.");
-            return 1;
+            return false;
         }
 
         List<String> keys = recipeIDTrie.listKeys();
@@ -320,11 +320,11 @@ public class RecipeWorker {
             wr.flush();
         } catch (IOException e) {
             if (debug) System.err.println("[saveRecipeTrie]: Could not save recipe trie file.");
-            return 2;
+            return false;
         }
 
         if (debug) System.out.println("[saveRecipeTrie]: Recipe trie saved.");
-        return 0;
+        return true;
     }
 
     // --- Getters & Setters ---
