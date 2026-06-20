@@ -174,7 +174,7 @@ public class RecipeWorker {
         }
 
         // copy images to dir
-        for (Path image : r.getImages()) {
+        if (r.getImages() != null) for (Path image : r.getImages()) {
             // skip if already in images folder
             if (image.getParent().getFileName().toString().equals("images")) {
                 continue;
@@ -189,7 +189,7 @@ public class RecipeWorker {
         }
 
         // copy files to dir
-        for (Path file : r.getAdditionalFiles()) {
+        if (r.getAdditionalFiles() != null) for (Path file : r.getAdditionalFiles()) {
             // skip if already in files folder
             if (file.getParent().getFileName().toString().equals("files")) {
                 continue;
