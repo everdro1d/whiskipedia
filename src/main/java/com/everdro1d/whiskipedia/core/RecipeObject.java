@@ -58,25 +58,7 @@ public class RecipeObject {
         this.categories = categories;
     }
 
-    // Test Recipe Object TODO: remove me
-    public RecipeObject() {
-        this.name = "New Recipe";
-        this.description = "Description\nA new line\n kachow";
-
-        this.instructions = "Instructions\n1. a\n2. b\n3. c";
-        this.ingredients = "Ingredients\nLightning\nMcQueen";
-        this.servingSize = "3";
-
-        this.notes = "Notes";
-        this.source = "Source";
-
-        this.previewImagePath = null;
-        this.images = null;
-        this.additionalFiles = null;
-
-        this.tags = new String[]{"a", "b", "c"};
-        this.categories = new String[]{"d", "e", "f"};
-    }
+    public RecipeObject() {}
 
     public void print() {
         System.out.printf(
