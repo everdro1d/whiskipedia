@@ -131,6 +131,10 @@ public class RecipeListSearchPanel extends JPanel {
         listScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         listScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        //TODO icon on list items
+        // see https://stackoverflow.com/a/5807585
+        // see https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html#renderer
+
         recipeDisplayList.setFont(MainWindow.SMALL_FONT);
         recipeDisplayList.setMinimumSize(new Dimension(MIN_PANEL_WIDTH, 25));
         recipeDisplayList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
