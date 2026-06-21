@@ -216,9 +216,8 @@ public class MainWindow extends JFrame {
                 if (guiDebugColoring) spacer.setBackground(Color.GREEN);
                 southPanel.add(spacer, southGBC);
 
-                //TODO add buttons for mgmt of recipes
-                // see https://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
-                // for image viewer example
+                //TODO is this panel still needed if we put recipe
+                //     mgmt buttons by the search util buttons?
             }
 
             eastPanel = new JPanel();

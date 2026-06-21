@@ -95,13 +95,14 @@ public class RecipeListSearchPanel extends JPanel {
                 placeholder.setPreferredSize(new Dimension(20, 20));
                 listUtilsMenuBar.add(placeholder);
 
-                // TODO add buttons for sorting and filtering (asc, desc..., type of dish, etc.)
+                //TODO add buttons for mgmt of recipes (create, delete-with confirm)
+                // TODO add buttons (2) for sort order and filtering (asc, desc..., type of dish, etc.)
             }
 
             searchBar = new LabeledTextField(searchBarDefaultText);
             searchBar.setFont(MainWindow.FONT);
             listUtilsPanel.add(searchBar);
-            // TODO update search for desc, tag, category, etc search
+            //TODO update search for desc, tag, category, etc search (see filtering todo above)
             searchBar.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyReleased(KeyEvent e) {
@@ -137,6 +138,7 @@ public class RecipeListSearchPanel extends JPanel {
 
         recipeDisplayList.setFont(MainWindow.FONT);
         recipeDisplayList.setMinimumSize(new Dimension(MIN_PANEL_WIDTH, 25));
+        //TODO maybe multiple sel, with delete button & confirm dialog (see todo 2 above)
         recipeDisplayList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         recipeDisplayList.setLayoutOrientation(JList.VERTICAL);
         recipeDisplayList.setVisibleRowCount(-1);
