@@ -189,16 +189,19 @@ public class RecipeListSearchPanel extends JPanel {
 
         recipeListModel.removeAllElements();
 
+        int invalid = 0;
         for (String match : matches) {
             RecipeObject r = recipes.get(match);
-            if (r == null) continue;
+            if (r == null) {
+                invalid++;
+                continue;
+            }
             String n = r.getName();
             recipeListModel.addElement(n.isEmpty() ? match : n);
         }
 
-        int i = recipeDisplayList.getSelectedIndex();
-        recipeDisplayList.setSelectedIndex(i);
-        recipeDisplayList.ensureIndexIsVisible(i);
+        if (debug && invalid > 0) System.err.println("Detected " + invalid + " invalid recipes. Please verify correct file structure");
+
         String name = RecipeWorker.selectedRecipe[1];
         int i = recipeDisplayList.getNextMatch((name == null ? "" : name), 0, Position.Bias.Forward);
         if (i >= 0) {

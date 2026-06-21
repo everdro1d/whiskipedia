@@ -108,7 +108,7 @@ public class RecipeWorker {
 
         if (Files.notExists(recipePath) || Files.notExists(metaFilePath) || Files.notExists(contentFilePath)
                 || Files.notExists(imagesDirPath) || Files.notExists(filesDirPath)) {
-            if (debug) System.err.println("[loadRecipe]: Recipe could not be found.");
+            if (debug) System.err.println("[loadRecipe]: Recipe " + recipeID + " could not be found.");
             return null;
         }
 
@@ -266,10 +266,12 @@ public class RecipeWorker {
 
     private static boolean loadContentFile(Path contentsFilePath, RecipeObject r) {
         List<String> lines;
+        String recipeID = parseNameToID(r.getName());
+
         try {
             lines = Files.readAllLines(contentsFilePath);
         } catch (IOException e) {
-            if (debug) System.err.println("[loadContentFile]: Could not load content file.");
+            if (debug) System.err.println("[loadContentFile]: " + recipeID + " Could not load content file.");
             return false;
         }
 
@@ -280,7 +282,7 @@ public class RecipeWorker {
 
         String[] parts = sb.toString().split("§§§", -1);
         if (parts.length != 3) {
-            if (debug) System.err.println("[loadContentFile]: Contents file number of parts invalid: " + parts.length);
+            if (debug) System.err.println("[loadContentFile]: " + recipeID + " Contents file number of parts invalid: " + parts.length);
             return false;
         }
 
@@ -288,7 +290,7 @@ public class RecipeWorker {
         r.setInstructions(parts[1].trim());
         r.setIngredients(parts[2].trim());
 
-        if (debug)  System.out.println("[loadContentFile]: Contents file loaded.");
+        if (debug)  System.out.println("[loadContentFile]: " + recipeID + " Contents file loaded.");
         return true;
     }
 
@@ -309,10 +311,11 @@ public class RecipeWorker {
 
         for (String key : keys) {
             recipeIDTrie.insert(key, loadRecipe(key));
-            if (debug) recipeIDTrie.get(key).print();
+            if (debug && recipeIDTrie.get(key) != null) recipeIDTrie.get(key).print();
         }
 
         if (debug) System.out.println("[loadRecipeTrie]: Recipe trie loaded.");
+        if (debug) System.out.println("Current recipe repository path: " + recipeRepositoryPath);
         return true;
     }
 
