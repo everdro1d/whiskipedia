@@ -160,7 +160,7 @@ public class MainWorker {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             saveWindowPosition();
 
-            prefs.putInt("dividerLocation", mainWindow.getCenterPanelDividerLocation());
+            prefs.putInt("dividerLocation", (mainWindow != null ? mainWindow.getCenterPanelDividerLocation() : centerPanelDividerLocation));
 
             prefs.put("currentLocale", currentLocale);
             prefs.putBoolean("darkMode", darkMode);
