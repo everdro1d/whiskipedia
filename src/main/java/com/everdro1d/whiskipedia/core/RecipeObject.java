@@ -1,14 +1,99 @@
 package com.everdro1d.whiskipedia.core;
 
 import java.nio.file.Path;
+import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 public class RecipeObject {
     private String name;
     private String description;
 
     private String instructions;
-    private String ingredients;
+
+    static final DecimalFormat df = new DecimalFormat("#.##########");
+
+    public enum UnitCategory {
+        WEIGHT, VOLUME
+    }
+
+    public enum IngredientUnit {
+        // Weight Units (Base: Gram)
+        GRAM(UnitCategory.WEIGHT, 1.0),
+        DEKAGRAM(UnitCategory.WEIGHT, 10.0),
+        KILOGRAM(UnitCategory.WEIGHT, 1000.0),
+        OUNCE(UnitCategory.WEIGHT, 28.3495),
+        POUND(UnitCategory.WEIGHT, 453.592),
+
+        // Volume Units (Base: Milliliter)
+        ML(UnitCategory.VOLUME, 1.0),
+        LITER(UnitCategory.VOLUME, 1000.0),
+        TSP(UnitCategory.VOLUME, 4.92892),
+        TBSP(UnitCategory.VOLUME, 14.7868),
+        FLOZ(UnitCategory.VOLUME, 29.5735),
+        CUP(UnitCategory.VOLUME, 240.0);
+
+        private final UnitCategory category;
+        private final double baseFactor;
+
+        IngredientUnit(UnitCategory category, double baseFactor) {
+            this.category = category;
+            this.baseFactor = baseFactor;
+        }
+
+        public UnitCategory getCategory() { return category; }
+
+        public double convertTo(double amount, IngredientUnit targetUnit) {
+            if (this.category != targetUnit.category) {
+                throw new IllegalArgumentException("Cannot convert " + this.category + " to " + targetUnit.category);
+            }
+
+            return (amount * this.baseFactor) / targetUnit.baseFactor;
+        }
+
+        public static Optional<IngredientUnit> fromString(String name) {
+            if (name == null || name.isBlank()) {
+                return Optional.empty();
+            }
+
+            String cleanName = name.trim();
+            if (cleanName.length() > 1 && cleanName.toLowerCase().endsWith("s")) {
+                cleanName = cleanName.substring(0, cleanName.length() - 1);
+            }
+
+            final String finalName = cleanName;
+            return Arrays.stream(values())
+                    .filter(u -> u.name().equalsIgnoreCase(finalName))
+                    .findFirst();
+        }
+    }
+
+    private List<Ingredient> ingredients;
+    public record Ingredient(String name, double amount, String unit) {
+        @Override
+        public String toString() {
+            return String.format("%s: %s %s", name, df.format(amount), unit);
+        }
+
+        /**
+         * Accepts any of:
+         * <pre>
+         * Weight: gram, kilogram, dekagram, ounce, pound.
+         * Volume: mL, liter, tsp, tbsp, flOz, cups.
+         * </pre>
+         */
+        public Ingredient convertTo(String targetUnitStr) {
+            IngredientUnit source = IngredientUnit.fromString(this.unit)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid source unit: " + this.unit));
+            IngredientUnit target = IngredientUnit.fromString(targetUnitStr)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid target unit: " + targetUnitStr));
+
+            double newAmount = source.convertTo(this.amount, target);
+            return new Ingredient(this.name, newAmount, target.name());
+        }
+    }
+
     private String servingSize;
 
     private String notes;
@@ -27,7 +112,7 @@ public class RecipeObject {
             String description, // markdown
 
             String instructions, // markdown
-            String ingredients, // markdown
+            List<Ingredient> ingredients,
             String servingSize, // number
 
             String notes, // text
@@ -91,7 +176,7 @@ public class RecipeObject {
                 this.name,
                 this.description,
                 this.instructions,
-                this.ingredients,
+                this.ingredients.toString(),
                 this.servingSize,
                 this.notes,
                 this.source,
@@ -129,11 +214,11 @@ public class RecipeObject {
         this.instructions = instructions;
     }
 
-    public String getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 

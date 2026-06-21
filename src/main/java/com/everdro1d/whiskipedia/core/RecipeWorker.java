@@ -177,7 +177,7 @@ public class RecipeWorker {
 
         // save content file
         try (FileWriter wr = new FileWriter(contentFilePath.toString())) {
-            wr.write(r.getDescription() + "\n§§§\n" + r.getInstructions() + "\n§§§\n" + r.getIngredients());
+            wr.write(r.getDescription() + "\n§§§\n" + r.getInstructions() + "\n§§§\n" + parseWritableIngredients(r.getIngredients()));
             wr.flush();
         } catch (IOException e) {
             if (debug) System.err.println("[saveRecipe]: Could not save recipe contents file.");
@@ -288,10 +288,38 @@ public class RecipeWorker {
 
         r.setDescription(parts[0].trim());
         r.setInstructions(parts[1].trim());
-        r.setIngredients(parts[2].trim());
+        r.setIngredients(parseIngredientsList(parts[2].trim()));
 
         if (debug)  System.out.println("[loadContentFile]: " + recipeID + " Contents file loaded.");
         return true;
+    }
+
+    private static List<RecipeObject.Ingredient> parseIngredientsList(String s) {
+        List<RecipeObject.Ingredient> ingredients = new ArrayList<RecipeObject.Ingredient>();
+        // ingredient strings should be formatted "%s: %s %s\n" (name, amount, unit)
+
+        String[] ingr = s.split(System.lineSeparator());
+        for (String i : ingr) {
+            String[] parts = i.split(" ");
+
+            String name = parts[0].split(":")[0];
+            double amount = Double.parseDouble(parts[1]);
+            String unit = parts[2];
+
+            ingredients.add(new RecipeObject.Ingredient(name, amount, unit));
+        }
+
+        return ingredients;
+    }
+
+    public static String parseWritableIngredients(List<RecipeObject.Ingredient> list) {
+        StringBuilder sb = new StringBuilder();
+
+        for (RecipeObject.Ingredient i : list) {
+            sb.append(i.toString()).append(System.lineSeparator());
+        }
+
+        return sb.toString();
     }
 
     public static boolean loadRecipeTrie() {
