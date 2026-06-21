@@ -8,11 +8,10 @@ import java.util.TreeMap;
 
 import static com.everdro1d.whiskipedia.core.MainWorker.*;
 
-public class RecipeDetailsPanel extends JScrollPane {
+public class RecipeDetailsPanel extends JPanel {
     // TODO populate recipe panel contents from recipe object
     // TODO update upon selecting a new object from the list
 
-    private JPanel topPanel;
 
     // UI Text Defaults ---
     private String recipeDetailsTitleText = "Recipe Details";
@@ -54,13 +53,8 @@ public class RecipeDetailsPanel extends JScrollPane {
         this.setMinimumSize(new Dimension(MIN_PANEL_WIDTH, MIN_PANEL_HEIGHT));
         this.setBorder(BorderFactory.createTitledBorder(recipeDetailsTitleText));
 
-        this.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
-        if (guiDebugColoring) topPanel.setBackground(Color.BLUE);
-        this.setViewportView(topPanel);
+        this.setLayout(new GridBagLayout());
+        if (guiDebugColoring) this.setBackground(Color.BLUE);
         {
             /* TODO
              * # Title
