@@ -6,6 +6,7 @@ package com.everdro1d.whiskipedia.ui;
 
 import com.everdro1d.libs.swing.ImageUtils;
 import com.everdro1d.libs.swing.SwingGUI;
+import com.everdro1d.whiskipedia.ui.panels.RecipeDetailsPanel;
 import com.everdro1d.whiskipedia.ui.panels.RecipeListSearchPanel;
 
 import javax.swing.*;
@@ -32,7 +33,7 @@ public class MainWindow extends JFrame {
             private JSplitPane centerPanel;
                 private RecipeListSearchPanel recipeListPanel;
                 private JScrollPane recipeScrollPane;
-                    private JPanel recipePanel;
+                    private RecipeDetailsPanel recipeDetailsPanel;
             private JPanel southPanel;
             private JPanel eastPanel;
             private JPanel westPanel;
@@ -41,7 +42,6 @@ public class MainWindow extends JFrame {
 
     // UI Text Defaults ---------------------------------------------------|
     public static String titleText = "Whiskipedia";
-    private String recipeDetailsTitleText = "Recipe Details";
     // End of UI Text Defaults --------------------------------------------|
 
     // NOTE: font name and size for the application
@@ -79,7 +79,6 @@ public class MainWindow extends JFrame {
         map.put("Main", new TreeMap<>());
         Map<String, String> mainMap = map.get("Main");
         mainMap.put("titleText", titleText);
-        mainMap.put("recipeDetailsTitleText", recipeDetailsTitleText);
 
         localeManager.addClassSpecificMap("MainWindow", map);
     }
@@ -87,7 +86,6 @@ public class MainWindow extends JFrame {
     private void useLocale() {
         Map<String, String> varMap = localeManager.getAllVariablesWithinClassSpecificMap("MainWindow");
         titleText = varMap.getOrDefault("titleText", titleText);
-        recipeDetailsTitleText = varMap.getOrDefault("recipeDetailsTitleText", recipeDetailsTitleText);
     }
 
     private void initializeWindowProperties() {
@@ -196,16 +194,8 @@ public class MainWindow extends JFrame {
                 recipeListPanel = new RecipeListSearchPanel();
                 centerPanel.setLeftComponent(recipeListPanel);
 
-                recipeScrollPane = new JScrollPane(recipePanel = new JPanel());
-                recipeScrollPane.setMinimumSize(new Dimension(500, 300));
-                recipeScrollPane.setBorder(BorderFactory.createTitledBorder(recipeDetailsTitleText));
-                recipePanel.setLayout(new BorderLayout());
-                if (guiDebugColoring) recipePanel.setBackground(Color.BLUE);
+                recipeScrollPane = new RecipeDetailsPanel();
                 centerPanel.setRightComponent(recipeScrollPane);
-                {
-                    // actually the contents of recipe panel
-                    // TODO
-                }
             }
 
             southPanel = new JPanel();
