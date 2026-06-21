@@ -73,7 +73,7 @@ public class RecipeListSearchPanel extends JPanel {
     private void initializeGUIComponents() {
         this.setLayout(new BorderLayout());
         this.setMinimumSize(new Dimension(MIN_PANEL_WIDTH, 100));
-        this.setBorder(BorderFactory.createTitledBorder(recipeListTitleText));
+        this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(recipeListTitleText), BorderFactory.createEmptyBorder(0,2,2,2)));
 
         listUtilsPanel = new JPanel();
         listUtilsPanel.setLayout(new BoxLayout(listUtilsPanel, BoxLayout.Y_AXIS));
