@@ -12,7 +12,7 @@ public class RecipeObject {
 
     private String instructions;
 
-    static final DecimalFormat df = new DecimalFormat("#.##########");
+    static final DecimalFormat df = new DecimalFormat("#.####");
 
     public enum UnitCategory {
         WEIGHT, VOLUME
