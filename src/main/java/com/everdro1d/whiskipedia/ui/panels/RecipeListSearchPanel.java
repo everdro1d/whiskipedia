@@ -159,6 +159,8 @@ public class RecipeListSearchPanel extends JPanel {
             displayRecipeList();
 
             recipeDisplayList.getSelectionModel().addListSelectionListener(e -> {
+                if (e.getValueIsAdjusting()) return; // multiple events fire when selecting, use only the final one
+
                 int i = recipeDisplayList.getSelectedIndex();
                 if (i < 0) return;
 
