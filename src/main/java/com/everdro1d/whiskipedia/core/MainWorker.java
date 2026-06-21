@@ -150,6 +150,9 @@ public class MainWorker {
 
         recipeRepositoryPath = prefs.get("recipeRepositoryPath", recipeRepositoryPath);
 
+        RecipeWorker.selectedRecipe[0] = prefs.get("selectedRecipeKey", RecipeWorker.selectedRecipe[0]);
+        RecipeWorker.selectedRecipe[1] = prefs.get("selectedRecipeName", RecipeWorker.selectedRecipe[1]);
+
         savePreferencesOnExit();
     }
 
@@ -163,6 +166,9 @@ public class MainWorker {
             prefs.putBoolean("darkMode", darkMode);
 
             prefs.put("recipeRepositoryPath", recipeRepositoryPath);
+
+            prefs.put("selectedRecipeKey", RecipeWorker.selectedRecipe[0]);
+            prefs.put("selectedRecipeName", RecipeWorker.selectedRecipe[1]);
 
             ApplicationCore.saveConfigFile(MainWorker.class, developerConfigDirectoryName, prefs);
         }));

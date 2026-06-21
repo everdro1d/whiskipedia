@@ -26,6 +26,7 @@ import static com.everdro1d.whiskipedia.core.MainWorker.recipeRepositoryPath;
 
 public class RecipeWorker {
     public static final String recipeRepositoryName = "recipe-repository";
+    public static String[] selectedRecipe = new String[2];
 
     // TODO: Let user define repo path
 

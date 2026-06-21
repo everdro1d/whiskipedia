@@ -7,6 +7,7 @@ import com.everdro1d.whiskipedia.core.RecipeWorker;
 import com.everdro1d.whiskipedia.ui.MainWindow;
 
 import javax.swing.*;
+import javax.swing.text.Position;
 import java.awt.*;
 
 import java.awt.event.KeyAdapter;
@@ -152,7 +153,18 @@ public class RecipeListSearchPanel extends JPanel {
         this.add(listCardContainer, BorderLayout.CENTER);
         {
             displayRecipeList();
-            // TODO addListSelectionListener
+
+            recipeDisplayList.getSelectionModel().addListSelectionListener(e -> {
+                int i = recipeDisplayList.getSelectedIndex();
+                if (i < 0) return;
+
+                String name = recipeListModel.get(i);
+                String key = RecipeWorker.parseNameToID(name);
+                RecipeWorker.selectedRecipe[0] = key;
+                RecipeWorker.selectedRecipe[1] = name;
+                if (debug) System.out.println("Selected: " + key + "/\"" + name + "\"");
+            });
+
             // https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
         }
     }
@@ -187,6 +199,12 @@ public class RecipeListSearchPanel extends JPanel {
         int i = recipeDisplayList.getSelectedIndex();
         recipeDisplayList.setSelectedIndex(i);
         recipeDisplayList.ensureIndexIsVisible(i);
+        String name = RecipeWorker.selectedRecipe[1];
+        int i = recipeDisplayList.getNextMatch((name == null ? "" : name), 0, Position.Bias.Forward);
+        if (i >= 0) {
+            recipeDisplayList.setSelectedIndex(i);
+            recipeDisplayList.ensureIndexIsVisible(i);
+        }
 
         recipeDisplayList.revalidate();
         recipeDisplayList.repaint();
