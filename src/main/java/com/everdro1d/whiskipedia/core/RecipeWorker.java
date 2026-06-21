@@ -20,7 +20,7 @@ import static com.everdro1d.whiskipedia.core.MainWorker.recipeRepositoryPath;
 // L recipe-trie.txt
 // L <RecipeID>
 // | L meta.txt - contains info & refs
-// | L content.md - contains description, ingredients, instructions - separate by "\n§§§\n"
+// | L content.txt - contains description, ingredients, instructions - separate by "\n§§§\n"
 // | L images - contains images
 // | L files - contains additional files
 
@@ -102,7 +102,7 @@ public class RecipeWorker {
     private static RecipeObject loadRecipe(String recipeID) {
         Path recipePath = Path.of(recipeRepositoryPath + File.separator + recipeID);
         Path metaFilePath = Path.of(recipePath + File.separator + "meta.txt");
-        Path contentFilePath = Path.of(recipePath + File.separator + "content.md");
+        Path contentFilePath = Path.of(recipePath + File.separator + "content.txt");
         Path imagesDirPath = Path.of(recipePath + File.separator + "images");
         Path filesDirPath = Path.of(recipePath + File.separator + "files");
 
@@ -137,7 +137,7 @@ public class RecipeWorker {
     private static int saveRecipe(String recipeID, boolean overwrite) {
         Path recipePath = Path.of(recipeRepositoryPath + File.separator + recipeID);
         Path metaFilePath = Path.of(recipePath + File.separator + "meta.txt");
-        Path contentFilePath = Path.of(recipePath + File.separator + "content.md");
+        Path contentFilePath = Path.of(recipePath + File.separator + "content.txt");
         Path imagesDirPath = Path.of(recipePath + File.separator + "images");
         Path filesDirPath = Path.of(recipePath + File.separator + "files");
 
