@@ -14,17 +14,21 @@ import static com.everdro1d.whiskipedia.core.MainWorker.*;
 
 public class RecipeDetailsPanel extends JPanel {
 
-    private JLabel recipeTitleLabel;
-    private JTextArea descriptionDisplayArea;
-    private JSplitPane ingredientInstructionsContainer;
-        private JScrollPane ingredientsScrollPane;
-            private DefaultListModel<RecipeObject.Ingredient> ingredientsModel;
-            private JList<RecipeObject.Ingredient> ingredientsList;
-        private JScrollPane instructionsScrollPane;
-            private JTextArea instructionsDisplayArea;
+    private CardLayout cardLayout;
+    private JLabel detailsEmptyLabel;
+    private JPanel detailsPanel;
+        private JLabel recipeTitleLabel;
+        private JTextArea descriptionDisplayArea;
+        private JSplitPane ingredientInstructionsContainer;
+            private JScrollPane ingredientsScrollPane;
+                private DefaultListModel<RecipeObject.Ingredient> ingredientsModel;
+                private JList<RecipeObject.Ingredient> ingredientsList;
+            private JScrollPane instructionsScrollPane;
+                private JTextArea instructionsDisplayArea;
 
     // UI Text Defaults ---
     private String recipeDetailsTitleText = "Recipe Details";
+    private String detailsEmptyLabelText = "No Recipe Selected";
     private String descriptionAreaTitleText = "Description";
     private String ingredientsPaneTitleText = "Ingredients List";
     private String instructionsPaneTitleText = "Instructions";
@@ -53,6 +57,7 @@ public class RecipeDetailsPanel extends JPanel {
         map.put("ingredientsPaneTitleText", ingredientsPaneTitleText);
         map.put("instructionsPaneTitleText", instructionsPaneTitleText);
         map.put("descriptionAreaTitleText", descriptionAreaTitleText);
+        map.put("detailsEmptyLabelText", detailsEmptyLabelText);
 
 
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")) {
@@ -68,6 +73,7 @@ public class RecipeDetailsPanel extends JPanel {
         ingredientsPaneTitleText = varMap.getOrDefault("ingredientsPaneTitleText", ingredientsPaneTitleText);
         instructionsPaneTitleText = varMap.getOrDefault("instructionsPaneTitleText", instructionsPaneTitleText);
         descriptionAreaTitleText = varMap.getOrDefault("descriptionAreaTitleText", descriptionAreaTitleText);
+        detailsEmptyLabelText = varMap.getOrDefault("detailsEmptyLabelText", detailsEmptyLabelText);
 
     }
 
@@ -75,8 +81,19 @@ public class RecipeDetailsPanel extends JPanel {
         this.setMinimumSize(new Dimension(MIN_PANEL_WIDTH, MIN_PANEL_HEIGHT));
         this.setBorder(BorderFactory.createTitledBorder(recipeDetailsTitleText));
 
-        this.setLayout(new GridBagLayout());
-        if (guiDebugColoring) this.setBackground(Color.BLUE);
+        cardLayout = new CardLayout();
+        this.setLayout(cardLayout);
+
+        detailsEmptyLabel = new JLabel(detailsEmptyLabelText);
+        detailsEmptyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        detailsEmptyLabel.setVerticalAlignment(SwingConstants.CENTER);
+        detailsEmptyLabel.setFont(new Font(MainWindow.fontName, Font.PLAIN, MainWindow.fontSize + 10));
+
+        detailsPanel = new JPanel(new GridBagLayout());
+        if (guiDebugColoring) detailsPanel.setBackground(Color.BLUE);
+
+        this.add(detailsPanel, "DETAILS");
+        this.add(detailsEmptyLabel, "EMPTY");
         {
             GridBagConstraints c = new GridBagConstraints();
             c.gridx = 0;
@@ -90,7 +107,7 @@ public class RecipeDetailsPanel extends JPanel {
             recipeTitleLabel.setFont(new Font(MainWindow.fontName, Font.BOLD, MainWindow.fontSize + 10));
             recipeTitleLabel.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
             if (guiDebugColoring) recipeTitleLabel.setBackground(Color.RED);
-            this.add(recipeTitleLabel, c);
+            detailsPanel.add(recipeTitleLabel, c);
 
             //TODO add edit button in right hand corner (icon) and/or serving size label
 
@@ -104,7 +121,7 @@ public class RecipeDetailsPanel extends JPanel {
             descriptionDisplayArea.setWrapStyleWord(true);
             descriptionDisplayArea.setFont(MainWindow.FONT);
             if (guiDebugColoring) descriptionDisplayArea.setBackground(Color.PINK);
-            this.add(descriptionDisplayArea, c);
+            detailsPanel.add(descriptionDisplayArea, c);
 
             c.gridy++;
             c.weighty = 1;
@@ -115,7 +132,7 @@ public class RecipeDetailsPanel extends JPanel {
 
             ingredientInstructionsContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
             if (guiDebugColoring) ingredientInstructionsContainer.setBackground(Color.ORANGE);
-            this.add(ingredientInstructionsContainer, c);
+            detailsPanel.add(ingredientInstructionsContainer, c);
             {
                 int min_width = (int)(MIN_PANEL_WIDTH/2.5);
                 int min_height = MIN_PANEL_HEIGHT/3;
@@ -177,9 +194,11 @@ public class RecipeDetailsPanel extends JPanel {
         // Fetch details of recipe object ---
         RecipeObject r = RecipeWorker.getRecipeIDTrie().get(key);
 
-        if (r == null) { //TODO implement cardlayout switch for when no recipe is selected (see search list)
-            recipeTitleLabel.setText("No Recipe Selected");
+        if (r == null) {
+            cardLayout.show(this, "EMPTY");
             return;
+        } else {
+            cardLayout.show(this, "DETAILS");
         }
 
         recipeTitleLabel.setText(r.getName());
