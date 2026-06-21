@@ -86,11 +86,13 @@ public class RecipeDetailsPanel extends JPanel {
             c.anchor = GridBagConstraints.FIRST_LINE_START;
             c.fill = GridBagConstraints.BOTH;
 
-            recipeTitleLabel = new JLabel("Placeholder"); //TODO add edit button in right hand corner (icon)
+            recipeTitleLabel = new JLabel("Placeholder");
             recipeTitleLabel.setFont(new Font(MainWindow.fontName, Font.BOLD, MainWindow.fontSize + 10));
             recipeTitleLabel.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
             if (guiDebugColoring) recipeTitleLabel.setBackground(Color.RED);
             this.add(recipeTitleLabel, c);
+
+            //TODO add edit button in right hand corner (icon) and/or serving size label
 
             c.gridy++;
 

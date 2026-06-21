@@ -304,7 +304,7 @@ public class RecipeWorker {
 
             String name = parts[0].split(":")[0];
             double amount = Double.parseDouble(parts[1]);
-            String unit = parts[2];
+            String unit = parts[2]; //TODO handle "count" and null state
 
             ingredients.add(new RecipeObject.Ingredient(name, amount, unit));
         }
