@@ -141,12 +141,12 @@ public class GeneralSettingsPanel extends JPanel {
     private void useLocale() {
         Map<String,String> varMap = localeManager.getComponentSpecificMap("BasicSettingsWindow", "GeneralSettingsPanel");
 
-        debugSwitchLabelText = varMap.get("debugSwitchLabelText");
-        darkModeSwitchLabelText = varMap.get("darkModeSwitchLabelText");
-        repositoryPathLabelText = varMap.get("repositoryPathLabelText");
+        debugSwitchLabelText = varMap.getOrDefault("debugSwitchLabelText", debugSwitchLabelText);
+        darkModeSwitchLabelText = varMap.getOrDefault("darkModeSwitchLabelText", darkModeSwitchLabelText);
+        repositoryPathLabelText = varMap.getOrDefault("repositoryPathLabelText", repositoryPathLabelText);
 
         for (int i = 0; i < enableDisableSwitchOptions.length; i++) {
-            enableDisableSwitchOptions[i] = varMap.get("enableDisableSwitchOptions"+i);
+            enableDisableSwitchOptions[i] = varMap.getOrDefault("enableDisableSwitchOptions"+i, enableDisableSwitchOptions[i]);
         }
     }
 }
