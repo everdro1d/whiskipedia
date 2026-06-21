@@ -17,6 +17,10 @@ public class RecipeDetailsPanel extends JScrollPane {
     // UI Text Defaults ---
     private String recipeDetailsTitleText = "Recipe Details";
 
+    // Other ---
+    private final int MIN_PANEL_WIDTH = 515;
+    private final int MIN_PANEL_HEIGHT = 470;
+
     public RecipeDetailsPanel() {
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")
                 || !localeManager.getComponentsInClassMap("MainWindow")
@@ -47,7 +51,7 @@ public class RecipeDetailsPanel extends JScrollPane {
     }
 
     private void initializeGUIComponents() {
-        this.setMinimumSize(new Dimension(500, 300));
+        this.setMinimumSize(new Dimension(MIN_PANEL_WIDTH, MIN_PANEL_HEIGHT));
         this.setBorder(BorderFactory.createTitledBorder(recipeDetailsTitleText));
 
         this.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
