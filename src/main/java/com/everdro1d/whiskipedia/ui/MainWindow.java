@@ -146,7 +146,7 @@ public class MainWindow extends JFrame {
                 northGBC.insets = new Insets(4, 4, 4, 4);
 
                 titleLabel = new JLabel(titleText);
-                titleLabel.setFont(new Font(fontName, Font.BOLD, fontSize + 12));
+                titleLabel.setFont(new Font(fontName, Font.BOLD, fontSize + 16));
                 titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
                 if (guiDebugColoring) {
                     titleLabel.setBackground(Color.YELLOW);
