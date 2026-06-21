@@ -109,9 +109,9 @@ public class RecipeObject {
     // ------------------------------------------------------------------------|
     public RecipeObject(
             String name, // text TODO
-            String description, // markdown
+            String description, // text
 
-            String instructions, // markdown
+            String instructions, // text
             List<Ingredient> ingredients,
             String servingSize, // number
 

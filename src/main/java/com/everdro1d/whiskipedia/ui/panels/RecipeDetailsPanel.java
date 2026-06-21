@@ -56,7 +56,13 @@ public class RecipeDetailsPanel extends JScrollPane {
         topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
         if (guiDebugColoring) topPanel.setBackground(Color.BLUE);
-
         this.setViewportView(topPanel);
+        {
+            /* TODO
+             * # Title
+             * > Description
+             * | Ingredients | Instructions |
+             */
+        }
     }
 }
