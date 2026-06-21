@@ -32,8 +32,7 @@ public class MainWindow extends JFrame {
                 private JSeparator titleSeparator;
             private JSplitPane centerPanel;
                 private RecipeListSearchPanel recipeListPanel;
-                private JScrollPane recipeScrollPane;
-                    private RecipeDetailsPanel recipeDetailsPanel;
+                private RecipeDetailsPanel recipeDetailsPanel;
             private JPanel southPanel;
             private JPanel eastPanel;
             private JPanel westPanel;
@@ -194,8 +193,8 @@ public class MainWindow extends JFrame {
                 recipeListPanel = new RecipeListSearchPanel();
                 centerPanel.setLeftComponent(recipeListPanel);
 
-                recipeScrollPane = new RecipeDetailsPanel();
-                centerPanel.setRightComponent(recipeScrollPane);
+                recipeDetailsPanel = new RecipeDetailsPanel();
+                centerPanel.setRightComponent(recipeDetailsPanel);
             }
 
             southPanel = new JPanel();
