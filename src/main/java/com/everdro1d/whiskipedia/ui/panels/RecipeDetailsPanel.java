@@ -13,8 +13,6 @@ import java.util.TreeMap;
 import static com.everdro1d.whiskipedia.core.MainWorker.*;
 
 public class RecipeDetailsPanel extends JPanel {
-    // TODO populate recipe panel contents from recipe object
-    // TODO update upon selecting a new object from the list
 
     private JLabel recipeTitleLabel;
     private JTextArea descriptionDisplayArea;
@@ -45,6 +43,8 @@ public class RecipeDetailsPanel extends JPanel {
         useLocale();
 
         initializeGUIComponents();
+
+        setRecipeDetails(RecipeWorker.selectedRecipe[0]);
     }
 
     private void addComponentToLocale() {
@@ -155,5 +155,25 @@ public class RecipeDetailsPanel extends JPanel {
 
             c.weighty = 0;
         }
+    }
+
+    public void setRecipeDetails(String key) {
+        // Fetch details of recipe object ---
+        RecipeObject r = RecipeWorker.getRecipeIDTrie().get(key);
+
+        recipeTitleLabel.setText(r.getName());
+
+        descriptionDisplayArea.setText(r.getDescription());
+
+        ingredientsModel.removeAllElements();
+        ingredientsModel.addAll(r.getIngredients());
+
+        instructionsDisplayArea.setText(r.getInstructions());
+
+        // Finish ---
+        instructionsScrollPane.getViewport().setViewPosition(new Point(0, 0));
+
+        this.revalidate();
+        this.repaint();
     }
 }

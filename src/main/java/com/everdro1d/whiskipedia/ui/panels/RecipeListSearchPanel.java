@@ -166,6 +166,10 @@ public class RecipeListSearchPanel extends JPanel {
                 String key = RecipeWorker.parseNameToID(name);
                 RecipeWorker.selectedRecipe[0] = key;
                 RecipeWorker.selectedRecipe[1] = name;
+
+                RecipeDetailsPanel p = getMainWindow().getRecipeDetailsPanel();
+                p.setRecipeDetails(key);
+
                 if (debug) System.out.println("Selected: " + key + "/\"" + name + "\"");
             });
 

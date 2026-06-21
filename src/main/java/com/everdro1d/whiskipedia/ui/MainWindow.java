@@ -262,4 +262,8 @@ public class MainWindow extends JFrame {
     public void setCenterPanelDividerLocation(int l) {
         centerPanel.setDividerLocation(l);
     }
+
+    public RecipeDetailsPanel getRecipeDetailsPanel() {
+        return recipeDetailsPanel;
+    }
 }
