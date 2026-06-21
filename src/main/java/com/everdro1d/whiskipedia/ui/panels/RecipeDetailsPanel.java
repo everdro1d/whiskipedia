@@ -177,6 +177,11 @@ public class RecipeDetailsPanel extends JPanel {
         // Fetch details of recipe object ---
         RecipeObject r = RecipeWorker.getRecipeIDTrie().get(key);
 
+        if (r == null) { //TODO implement cardlayout switch for when no recipe is selected (see search list)
+            recipeTitleLabel.setText("No Recipe Selected");
+            return;
+        }
+
         recipeTitleLabel.setText(r.getName());
 
         descriptionDisplayArea.setText(r.getDescription());
