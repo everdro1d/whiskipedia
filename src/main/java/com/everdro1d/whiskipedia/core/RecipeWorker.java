@@ -96,6 +96,7 @@ public class RecipeWorker {
     }
 
     public static String parseNameToID(String name) {
+        //TODO MAKE FILESYSTEM SAFE
         return name.toLowerCase().replaceAll("\\s+", "-");
     }
 
