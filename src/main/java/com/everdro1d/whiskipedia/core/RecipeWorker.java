@@ -266,7 +266,7 @@ public class RecipeWorker {
 
     private static boolean loadContentFile(Path contentsFilePath, RecipeObject r) {
         List<String> lines;
-        String recipeID = parseNameToID(r.getName());
+        String recipeID = r.getID();
 
         try {
             lines = Files.readAllLines(contentsFilePath);

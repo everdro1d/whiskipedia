@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class RecipeObject {
+    private String id;
     private String name;
     private String description;
 
@@ -125,6 +126,7 @@ public class RecipeObject {
             String[] tags,
             String[] categories
     ) {
+        this.id = RecipeWorker.parseNameToID(name);
         this.name = name;
         this.description = description;
 
@@ -189,12 +191,27 @@ public class RecipeObject {
     }
 
     // Getters and Setters ----------------------------------------------------|
+    public String getID() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    /**
+     * !!DOES NOT WRITE FILES!!
+     * <br>Sets name and updates ID.
+     * @return false if new ID already exists in trie
+     */
+    public boolean setName(String name) {
+        //TODO if name changes, so should ID. should options be allowed to overwrite existing?
+        String newID = RecipeWorker.parseNameToID(name);
+        if (RecipeWorker.getRecipeIDTrie().contains(newID)) return false;
+
+        this.id = newID;
         this.name = name;
+        return true;
     }
 
     public String getDescription() {
