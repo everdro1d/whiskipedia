@@ -247,7 +247,7 @@ public class RecipeDetailsPanel extends JPanel {
         numberServingsLabel.setText(String.format(numberServingsLabelText, r.getNumServings()));
 
         // Finish ---
-        instructionsScrollPane.getViewport().setViewPosition(new Point(0, 0));
+        instructionsDisplayArea.setCaretPosition(0);
 
         this.revalidate();
         this.repaint();
