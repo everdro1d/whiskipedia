@@ -138,6 +138,12 @@ public class RecipeDetailsPanel extends JPanel {
                 int min_height = MIN_PANEL_HEIGHT/3;
 
                 // --- Ingredients ---
+                //TODO add button to convert ingredient units -> dialog
+                // combobox-ingredient : label-amount -> combobox-new-unit
+                // use options convert permanent (replace ingredients in recipe object)
+                // or convert temporary (copy a temp recipe object, replace ingr., show in details, toss when done)
+                // to this end, wrap ingredients in a panel and add a button below
+
                 ingredientsModel = new DefaultListModel<>();
 
                 ingredientsList = new JList<>(ingredientsModel);
@@ -183,10 +189,6 @@ public class RecipeDetailsPanel extends JPanel {
             // see https://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
             // for image viewer example
 
-            //TODO add button (left side) convert ingredient units -> dialog
-            // combobox-ingredient : label-amount -> combobox-new-unit
-            // use options convert permanent (replace ingredients in recipe object)
-            // or convert temporary (copy a temp recipe object, replace ingr., show in details, toss when done)
         }
     }
 
