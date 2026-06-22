@@ -1,12 +1,16 @@
 package com.everdro1d.whiskipedia.ui.panels;
 
+import com.everdro1d.libs.io.Files;
 import com.everdro1d.whiskipedia.core.RecipeObject;
 import com.everdro1d.whiskipedia.core.RecipeWorker;
 import com.everdro1d.whiskipedia.ui.MainWindow;
+import com.everdro1d.whiskipedia.ui.dialogs.ImageViewerDialog;
+import com.everdro1d.whiskipedia.ui.dialogs.MetadataDialog;
 
 import javax.swing.*;
 
 import java.awt.*;
+import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -27,6 +31,10 @@ public class RecipeDetailsPanel extends JPanel {
                 private JTextArea instructionsDisplayArea;
         private JPanel detailsExtrasPanel;
             private JLabel numberServingsLabel;
+        private JPanel detailsButtonPanel;
+            private JButton viewImagesButton;
+            private JButton viewFilesButton;
+            private JButton viewMetaButton;
 
     // UI Text Defaults ---
     private String recipeDetailsTitleText = "Recipe Details";
@@ -35,6 +43,9 @@ public class RecipeDetailsPanel extends JPanel {
     private String ingredientsPaneTitleText = "Ingredients List";
     private String instructionsPaneTitleText = "Instructions";
     private String numberServingsLabelText = "Number of servings: %s";
+    private String viewMetaButtonText = "View Metadata";
+    private String viewFilesButtonText = "View Files";
+    private String viewImagesButtonText = "View Images";
 
     // Other ---
     private final int MIN_PANEL_WIDTH = 515;
@@ -62,6 +73,9 @@ public class RecipeDetailsPanel extends JPanel {
         map.put("descriptionAreaTitleText", descriptionAreaTitleText);
         map.put("detailsEmptyLabelText", detailsEmptyLabelText);
         map.put("numberServingsLabelText", numberServingsLabelText);
+        map.put("viewMetaButtonText", viewMetaButtonText);
+        map.put("viewFilesButtonText", viewFilesButtonText);
+        map.put("viewImagesButtonText", viewImagesButtonText);
 
 
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")) {
@@ -79,6 +93,9 @@ public class RecipeDetailsPanel extends JPanel {
         descriptionAreaTitleText = varMap.getOrDefault("descriptionAreaTitleText", descriptionAreaTitleText);
         detailsEmptyLabelText = varMap.getOrDefault("detailsEmptyLabelText", detailsEmptyLabelText);
         numberServingsLabelText = varMap.getOrDefault("numberServingsLabelText", numberServingsLabelText);
+        viewMetaButtonText = varMap.getOrDefault("viewMetaButtonText", viewMetaButtonText);
+        viewFilesButtonText = varMap.getOrDefault("viewFilesButtonText", viewFilesButtonText);
+        viewImagesButtonText = varMap.getOrDefault("viewImagesButtonText", viewImagesButtonText);
 
     }
 
@@ -214,6 +231,34 @@ public class RecipeDetailsPanel extends JPanel {
                 detailsExtrasPanel.add(new JPanel(), gbc);
                 gbc.gridx++;
                 gbc.weightx = 0;
+
+                detailsButtonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+                detailsExtrasPanel.add(detailsButtonPanel, gbc);
+                {
+                    viewImagesButton = new JButton(viewImagesButtonText);
+                    viewImagesButton.setFont(MainWindow.SMALL_FONT);
+                    viewImagesButton.addActionListener(e -> {
+                        ImageViewerDialog d = new ImageViewerDialog();
+                    });
+                    detailsButtonPanel.add(viewImagesButton);
+
+                    viewFilesButton = new JButton(viewFilesButtonText);
+                    viewFilesButton.setFont(MainWindow.SMALL_FONT);
+                    viewFilesButton.addActionListener(e -> {
+                        String s = File.separator;
+                        String path = recipeRepositoryPath + s + RecipeWorker.selectedRecipe[0] + s + "files";
+                        Files.openInFileManager(path);
+                    });
+                    detailsButtonPanel.add(viewFilesButton);
+
+                    viewMetaButton = new JButton(viewMetaButtonText);
+                    viewMetaButton.setFont(MainWindow.SMALL_FONT);
+                    viewMetaButton.addActionListener(e -> {
+                        MetadataDialog d = new MetadataDialog();
+                    });
+                    detailsButtonPanel.add(viewMetaButton);
+                }
+
             }
 
             //TODO add buttons (right side) for viewing images, files, notes, etc.
