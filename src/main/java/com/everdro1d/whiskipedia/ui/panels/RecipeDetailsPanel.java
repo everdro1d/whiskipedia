@@ -114,7 +114,7 @@ public class RecipeDetailsPanel extends JPanel {
             c.gridy++;
 
             descriptionDisplayArea = new JTextArea("Placeholder");
-            descriptionDisplayArea.setBorder(BorderFactory.createTitledBorder(descriptionAreaTitleText));
+            descriptionDisplayArea.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder(descriptionAreaTitleText), BorderFactory.createEmptyBorder(0,2,2,2)));
             descriptionDisplayArea.setEditable(false);
             descriptionDisplayArea.setFocusable(false);
             descriptionDisplayArea.setLineWrap(true);
