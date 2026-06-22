@@ -95,7 +95,7 @@ public class RecipeObject {
         }
     }
 
-    private String servingSize;
+    private String numServings;
 
     private String notes;
     private String source;
@@ -114,7 +114,7 @@ public class RecipeObject {
 
             String instructions, // text
             List<Ingredient> ingredients,
-            String servingSize, // number
+            String numServings, // number
 
             String notes, // text
             String source, // text
@@ -132,7 +132,7 @@ public class RecipeObject {
 
         this.instructions = instructions;
         this.ingredients = ingredients;
-        this.servingSize = servingSize;
+        this.numServings = numServings;
 
         this.notes = notes;
         this.source = source;
@@ -179,7 +179,7 @@ public class RecipeObject {
                 this.description,
                 this.instructions,
                 this.ingredients.toString(),
-                this.servingSize,
+                this.numServings,
                 this.notes,
                 this.source,
                 this.previewImagePath,
@@ -239,12 +239,12 @@ public class RecipeObject {
         this.ingredients = ingredients;
     }
 
-    public String getServingSize() {
-        return servingSize;
+    public String getNumServings() {
+        return numServings;
     }
 
-    public void setServingSize(String servingSize) {
-        this.servingSize = servingSize;
+    public void setNumServings(String numServings) {
+        this.numServings = numServings;
     }
 
 

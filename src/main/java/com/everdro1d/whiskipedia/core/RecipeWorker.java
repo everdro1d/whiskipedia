@@ -245,7 +245,7 @@ public class RecipeWorker {
 
         map.put("name", r.getName());
 
-        map.put("servingSize", r.getServingSize());
+        map.put("servingSize", r.getNumServings());
         map.put("notes", r.getNotes());
         map.put("source", r.getSource());
 
@@ -264,7 +264,7 @@ public class RecipeWorker {
 
         r.setName(map.get("name"));
 
-        r.setServingSize(map.get("servingSize"));
+        r.setNumServings(map.get("servingSize"));
         r.setNotes(map.get("notes"));
         r.setSource(map.get("source"));
 
