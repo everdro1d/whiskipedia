@@ -95,9 +95,18 @@ public class RecipeWorker {
         return true;
     }
 
+    /**
+     * Parses the given name to an FS-safe ID
+     * @return - "invalid" if name is null or blank.
+     */
     public static String parseNameToID(String name) {
-        //TODO MAKE FILESYSTEM SAFE
-        return name.toLowerCase().replaceAll("\\s+", "-");
+        if (name == null || name.isBlank()) {
+            return "invalid";
+        }
+
+        String s = name.trim().toLowerCase().replaceAll("\\s+", "-");
+
+        return s.replaceAll("\\W+", "");
     }
 
     private static RecipeObject loadRecipe(String recipeID) {
