@@ -97,11 +97,11 @@ public class RecipeWorker {
 
     /**
      * Parses the given name to an FS-safe ID
-     * @return - "invalid" if name is null or blank.
+     * @return - "" if name is null or blank.
      */
     public static String parseNameToID(String name) {
         if (name == null || name.isBlank()) {
-            return "invalid";
+            return "";
         }
 
         String s = name.trim().toLowerCase().replaceAll("\\s+", "-");
