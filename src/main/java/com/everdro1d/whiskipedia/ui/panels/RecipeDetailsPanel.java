@@ -25,6 +25,8 @@ public class RecipeDetailsPanel extends JPanel {
                 private JList<RecipeObject.Ingredient> ingredientsList;
             private JScrollPane instructionsScrollPane;
                 private JTextArea instructionsDisplayArea;
+        private JPanel detailsExtrasPanel;
+            private JLabel numberServingsLabel;
 
     // UI Text Defaults ---
     private String recipeDetailsTitleText = "Recipe Details";
@@ -32,6 +34,7 @@ public class RecipeDetailsPanel extends JPanel {
     private String descriptionAreaTitleText = "Description";
     private String ingredientsPaneTitleText = "Ingredients List";
     private String instructionsPaneTitleText = "Instructions";
+    private String numberServingsLabelText = "Number of servings: %s";
 
     // Other ---
     private final int MIN_PANEL_WIDTH = 515;
@@ -58,6 +61,7 @@ public class RecipeDetailsPanel extends JPanel {
         map.put("instructionsPaneTitleText", instructionsPaneTitleText);
         map.put("descriptionAreaTitleText", descriptionAreaTitleText);
         map.put("detailsEmptyLabelText", detailsEmptyLabelText);
+        map.put("numberServingsLabelText", numberServingsLabelText);
 
 
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")) {
@@ -74,6 +78,7 @@ public class RecipeDetailsPanel extends JPanel {
         instructionsPaneTitleText = varMap.getOrDefault("instructionsPaneTitleText", instructionsPaneTitleText);
         descriptionAreaTitleText = varMap.getOrDefault("descriptionAreaTitleText", descriptionAreaTitleText);
         detailsEmptyLabelText = varMap.getOrDefault("detailsEmptyLabelText", detailsEmptyLabelText);
+        numberServingsLabelText = varMap.getOrDefault("numberServingsLabelText", numberServingsLabelText);
 
     }
 
@@ -109,7 +114,7 @@ public class RecipeDetailsPanel extends JPanel {
             if (guiDebugColoring) recipeTitleLabel.setBackground(Color.RED);
             detailsPanel.add(recipeTitleLabel, c);
 
-            //TODO add edit button in right hand corner (icon) and/or serving size label
+            //TODO add edit button in right hand corner (icon)
 
             c.gridy++;
 
@@ -183,6 +188,33 @@ public class RecipeDetailsPanel extends JPanel {
             }
 
             c.weighty = 0;
+            c.gridy++;
+
+            detailsExtrasPanel = new JPanel();
+            detailsExtrasPanel.setLayout(new GridBagLayout());
+            detailsExtrasPanel.setBorder(BorderFactory.createEmptyBorder(0,4,0,4));
+            detailsPanel.add(detailsExtrasPanel, c);
+            {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = 0;
+                gbc.gridy = 0;
+                gbc.weightx = 0;
+                gbc.weighty = 1;
+                gbc.anchor = GridBagConstraints.LINE_START;
+                gbc.fill = GridBagConstraints.BOTH;
+
+                numberServingsLabel = new JLabel(String.format(numberServingsLabelText, "1"));
+                numberServingsLabel.setEnabled(true);
+                numberServingsLabel.setFont(new Font(MainWindow.fontName, Font.ITALIC, MainWindow.SMALL_FONT.getSize()));
+                numberServingsLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 4)); // fix: italic font lets trailing px get cutoff
+                detailsExtrasPanel.add(numberServingsLabel, gbc);
+
+                gbc.gridx++;
+                gbc.weightx = 1;
+                detailsExtrasPanel.add(new JPanel(), gbc);
+                gbc.gridx++;
+                gbc.weightx = 0;
+            }
 
             //TODO add buttons (right side) for viewing images, files, notes, etc.
             // use dialogs to show these
@@ -211,6 +243,8 @@ public class RecipeDetailsPanel extends JPanel {
         ingredientsModel.addAll(r.getIngredients());
 
         instructionsDisplayArea.setText(r.getInstructions());
+
+        numberServingsLabel.setText(String.format(numberServingsLabelText, r.getNumServings()));
 
         // Finish ---
         instructionsScrollPane.getViewport().setViewPosition(new Point(0, 0));
