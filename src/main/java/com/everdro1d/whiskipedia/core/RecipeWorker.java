@@ -104,9 +104,9 @@ public class RecipeWorker {
             return "";
         }
 
-        String s = name.trim().toLowerCase().replaceAll("\\s+", "-");
+        String s = name.trim().toLowerCase().replaceAll("\\s+", "_");
 
-        return s.replaceAll("\\W+", "");
+        return s.replaceAll("\\W+", "").replace("_", "-");
     }
 
     private static RecipeObject loadRecipe(String recipeID) {
