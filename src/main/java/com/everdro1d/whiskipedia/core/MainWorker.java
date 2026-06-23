@@ -19,6 +19,7 @@ import com.everdro1d.whiskipedia.ui.dialogs.ImageViewerDialog;
 import static com.everdro1d.whiskipedia.core.ButtonAction.settingsWindow;
 import static com.everdro1d.whiskipedia.core.RecipeWorker.recipeRepositoryName;
 import static com.everdro1d.whiskipedia.ui.panels.RecipeDetailsPanel.imageViewerDialog;
+import static com.everdro1d.whiskipedia.ui.panels.RecipeDetailsPanel.metadataDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,6 +61,7 @@ public class MainWorker {
             debugConsoleWindow,
             settingsWindow,
             imageViewerDialog,
+            metadataDialog
     };
     /**
      * Valid: "windows", "mac", "unix"

@@ -19,6 +19,7 @@ import static com.everdro1d.whiskipedia.core.MainWorker.*;
 
 public class RecipeDetailsPanel extends JPanel {
     public static ImageViewerDialog imageViewerDialog;
+    public static MetadataDialog metadataDialog;
 
     private CardLayout cardLayout;
     private JLabel detailsEmptyLabel;
@@ -256,9 +257,10 @@ public class RecipeDetailsPanel extends JPanel {
 
                     viewMetaButton = new JButton(viewMetaButtonText);
                     viewMetaButton.setFont(MainWindow.SMALL_FONT);
-                    viewMetaButton.addActionListener(e -> {
-                        MetadataDialog d = new MetadataDialog();
-                    });
+                    viewMetaButton.addActionListener(e -> SwingUtilities.invokeLater(() -> {
+                        metadataDialog = new MetadataDialog();
+                        MainWorker.windowFrameArray[4] = metadataDialog;
+                    }));
                     detailsButtonPanel.add(viewMetaButton);
                 }
 

@@ -1,11 +1,12 @@
 package com.everdro1d.whiskipedia.ui.dialogs;
 
+import javax.swing.*;
 import java.util.Map;
 import java.util.TreeMap;
 
 import static com.everdro1d.whiskipedia.core.MainWorker.localeManager;
 
-public class MetadataDialog {
+public class MetadataDialog extends JFrame {
 
     // UI Text Defaults ---
     private String titleText = "Metadata Viewer";
