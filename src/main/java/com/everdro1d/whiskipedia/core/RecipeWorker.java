@@ -146,6 +146,7 @@ public class RecipeWorker {
         for (String f : com.everdro1d.libs.io.Files.getAllFilesInDirectory(filesDirPath.toString())) {
             files.add(Path.of(filesDirPath + File.separator + f));
         }
+        r.setAdditionalFiles(files);
 
         return r;
     }
