@@ -289,6 +289,7 @@ public class ImageViewerDialog extends JFrame {
             if (imageFileNames.isEmpty()) {
                 cardLayout.show(previewPanel, "EMPTY");
                 updateSelection();
+                showWindow();
 
                 return null;
             } else {
