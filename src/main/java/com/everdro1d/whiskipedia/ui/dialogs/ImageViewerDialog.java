@@ -16,9 +16,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import static com.everdro1d.libs.swing.ImageUtils.getScaledImage;
 import static com.everdro1d.whiskipedia.core.MainWorker.*;
@@ -43,6 +42,8 @@ public class ImageViewerDialog extends JFrame {
     // UI Text Defaults ---
     private String titleText = "Whiskipedia: Image Viewer";
     private String imagesEmptyLabelText = "No Images Found";
+    public static String updateImagesTitleText = "Update Images?";
+    public static String updateImagesMessageText = "Images in the file system have changed since loading this recipe.\nDo you want to update saved images now?";
 
     // Image Related ---
     private String imageDir;
@@ -86,6 +87,8 @@ public class ImageViewerDialog extends JFrame {
         Map<String, String> map = new TreeMap<>();
         map.put("titleText", titleText);
         map.put("imagesEmptyLabelText", imagesEmptyLabelText);
+        map.put("updateImagesTitleText", updateImagesTitleText);
+        map.put("updateImagesMessageText", updateImagesMessageText);
 
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")) {
             localeManager.addClassSpecificMap("MainWindow", new TreeMap<>());
@@ -98,6 +101,8 @@ public class ImageViewerDialog extends JFrame {
         Map<String, String> varMap = localeManager.getComponentSpecificMap("MainWindow", "ImageViewerDialog");
         titleText = varMap.getOrDefault("titleText", titleText);
         imagesEmptyLabelText = varMap.getOrDefault("imagesEmptyLabelText", imagesEmptyLabelText);
+        updateImagesTitleText = varMap.getOrDefault("updateImagesTitleText", updateImagesTitleText);
+        updateImagesMessageText = varMap.getOrDefault("updateImagesMessageText", updateImagesMessageText);
     }
 
     private void initializeWindowProperties() {
@@ -377,6 +382,8 @@ public class ImageViewerDialog extends JFrame {
                 return false;
             }
         }).toList();
+
+        RecipeWorker.updateRecipeImages(files);
 
         return files;
     }

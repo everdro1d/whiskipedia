@@ -1,7 +1,9 @@
 package com.everdro1d.whiskipedia.core;
 
 import com.everdro1d.libs.structs.Trie;
+import com.everdro1d.whiskipedia.ui.dialogs.ImageViewerDialog;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,8 +15,7 @@ import java.util.stream.Collectors;
 
 import static com.everdro1d.libs.io.Files.copyDirectory;
 import static com.everdro1d.libs.io.Files.deleteDirectory;
-import static com.everdro1d.whiskipedia.core.MainWorker.debug;
-import static com.everdro1d.whiskipedia.core.MainWorker.recipeRepositoryPath;
+import static com.everdro1d.whiskipedia.core.MainWorker.*;
 
 
 // repo
@@ -384,8 +385,32 @@ public class RecipeWorker {
         return true;
     }
 
-    // --- Getters & Setters ---
+    // --- Utils ---
 
+    public static void updateRecipeImages(List<String> files) {
+        updateRecipeImages(files, RecipeWorker.selectedRecipe[0]);
+    }
+
+    public static void updateRecipeImages(List<String> files, String key) {
+        RecipeObject r = RecipeWorker.getRecipeIDTrie().get(key);
+        Set<Path> detectedImages = files.stream()
+                .map(Path::of)
+                .collect(Collectors.toSet());
+
+        Set<Path> images = r.getImages();
+
+        if (detectedImages.equals(images)) return; // sets are identical
+
+        // 0 = yes | 1 = no
+        int status = JOptionPane.showConfirmDialog(getMainWindow(), ImageViewerDialog.updateImagesMessageText, ImageViewerDialog.updateImagesTitleText, JOptionPane.YES_NO_OPTION);
+
+        if (status == 1) return; // user opted not to update the images
+
+        r.setImages(detectedImages);
+        if (debug) System.out.println("Updated recipe images.");
+    }
+
+    // --- Getters & Setters ---
 
     public static Trie<RecipeObject> getRecipeIDTrie() {
         return recipeIDTrie;
