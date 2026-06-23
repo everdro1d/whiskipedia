@@ -1,6 +1,7 @@
 package com.everdro1d.whiskipedia.ui.panels;
 
 import com.everdro1d.libs.io.Files;
+import com.everdro1d.whiskipedia.core.MainWorker;
 import com.everdro1d.whiskipedia.core.RecipeObject;
 import com.everdro1d.whiskipedia.core.RecipeWorker;
 import com.everdro1d.whiskipedia.ui.MainWindow;
@@ -17,6 +18,7 @@ import java.util.TreeMap;
 import static com.everdro1d.whiskipedia.core.MainWorker.*;
 
 public class RecipeDetailsPanel extends JPanel {
+    public static ImageViewerDialog imageViewerDialog;
 
     private CardLayout cardLayout;
     private JLabel detailsEmptyLabel;
@@ -237,9 +239,10 @@ public class RecipeDetailsPanel extends JPanel {
                 {
                     viewImagesButton = new JButton(viewImagesButtonText);
                     viewImagesButton.setFont(MainWindow.SMALL_FONT);
-                    viewImagesButton.addActionListener(e -> {
-                        ImageViewerDialog d = new ImageViewerDialog();
-                    });
+                    viewImagesButton.addActionListener(e -> SwingUtilities.invokeLater(() -> {
+                        imageViewerDialog = new ImageViewerDialog();
+                        MainWorker.windowFrameArray[3] = imageViewerDialog;
+                    }));
                     detailsButtonPanel.add(viewImagesButton);
 
                     viewFilesButton = new JButton(viewFilesButtonText);

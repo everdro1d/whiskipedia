@@ -51,7 +51,7 @@ public class MainWindow extends JFrame {
     public static final Font SMALL_FONT = new Font(fontName, Font.PLAIN, (fontSize - 2));
 
     private final int MIN_WINDOW_WIDTH = 900;
-    private final int EDGE_PADDING = 15;
+    public static final int EDGE_PADDING = 15;
     private final int MIN_WINDOW_HEIGHT = 600;
 
 

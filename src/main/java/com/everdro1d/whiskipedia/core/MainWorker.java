@@ -14,8 +14,11 @@ import com.everdro1d.libs.swing.windows.DebugConsoleWindow;
 import com.everdro1d.whiskipedia.core.commands.GUIDebugCommand;
 import com.everdro1d.whiskipedia.ui.MainWindow;
 import com.everdro1d.whiskipedia.core.commands.DebugCommand;
+import com.everdro1d.whiskipedia.ui.dialogs.ImageViewerDialog;
+
 import static com.everdro1d.whiskipedia.core.ButtonAction.settingsWindow;
 import static com.everdro1d.whiskipedia.core.RecipeWorker.recipeRepositoryName;
+import static com.everdro1d.whiskipedia.ui.panels.RecipeDetailsPanel.imageViewerDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,11 +52,14 @@ public class MainWorker {
     public static int[] windowPosition = {0, 0, 0};
     public static int centerPanelDividerLocation;
     public static Dimension windowSize = new Dimension();
+
     private static MainWindow mainWindow;
+
     public static JFrame[] windowFrameArray = new JFrame[]{
             mainWindow,
             debugConsoleWindow,
-            settingsWindow
+            settingsWindow,
+            imageViewerDialog,
     };
     /**
      * Valid: "windows", "mac", "unix"
@@ -178,6 +184,10 @@ public class MainWorker {
         windowPosition[0] = prefs.getInt("framePosX", 0);
         windowPosition[1] = prefs.getInt("framePosY", 0);
         windowPosition[2] = prefs.getInt("activeMonitor", 0);
+
+        ImageViewerDialog.windowPosition[0] = prefs.getInt("imageViewerFramePosX", 0);
+        ImageViewerDialog.windowPosition[1] = prefs.getInt("imageViewerFramePosY", 0);
+        ImageViewerDialog.windowPosition[2] = prefs.getInt("imageViewerActiveMonitor", 0);
     }
 
     private static void saveWindowPosition() {
