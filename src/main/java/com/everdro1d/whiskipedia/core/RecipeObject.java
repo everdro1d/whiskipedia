@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class RecipeObject {
     private String id;
@@ -13,7 +14,7 @@ public class RecipeObject {
 
     private String instructions;
 
-    static final DecimalFormat df = new DecimalFormat("#.####");
+    private static final DecimalFormat df = new DecimalFormat("#.####");
 
     public enum UnitCategory {
         WEIGHT, VOLUME
@@ -101,11 +102,11 @@ public class RecipeObject {
     private String source;
 
     private Path previewImagePath;
-    private Path[] images;
-    private Path[] additionalFiles;
+    private Set<Path> images;
+    private Set<Path> additionalFiles;
 
-    private String[] tags;
-    private String[] categories;
+    private Set<String> tags;
+    private Set<String> categories;
 
     // ------------------------------------------------------------------------|
     public RecipeObject(
@@ -120,11 +121,11 @@ public class RecipeObject {
             String source, // text
 
             Path previewImagePath, // path in images
-            Path[] images, // path in images
-            Path[] additionalFiles, // path in files
+            Set<Path> images, // path in images
+            Set<Path> additionalFiles, // path in files
 
-            String[] tags,
-            String[] categories
+            Set<String> tags,
+            Set<String> categories
     ) {
         this.id = RecipeWorker.parseNameToID(name);
         this.name = name;
@@ -202,10 +203,10 @@ public class RecipeObject {
                 this.notes,
                 this.source,
                 this.previewImagePath,
-                Arrays.toString(this.images),
-                Arrays.toString(this.additionalFiles),
-                Arrays.toString(this.tags),
-                Arrays.toString(this.categories)
+                this.images,
+                this.additionalFiles,
+                this.tags,
+                this.categories
         );
     }
 
@@ -292,36 +293,36 @@ public class RecipeObject {
         this.previewImagePath = previewImagePath;
     }
 
-    public Path[] getImages() {
+    public Set<Path> getImages() {
         return images;
     }
 
-    public void setImages(Path[] images) {
+    public void setImages(Set<Path> images) {
         this.images = images;
     }
 
-    public Path[] getAdditionalFiles() {
+    public Set<Path> getAdditionalFiles() {
         return additionalFiles;
     }
 
-    public void setAdditionalFiles(Path[] additionalFiles) {
+    public void setAdditionalFiles(Set<Path> additionalFiles) {
         this.additionalFiles = additionalFiles;
     }
 
 
-    public String[] getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 
-    public void setTags(String[] tags) {
+    public void setTags(Set<String> tags) {
         this.tags = tags;
     }
 
-    public String[] getCategories() {
+    public Set<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(String[] categories) {
+    public void setCategories(Set<String> categories) {
         this.categories = categories;
     }
 

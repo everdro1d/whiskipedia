@@ -9,6 +9,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.everdro1d.libs.io.Files.copyDirectory;
 import static com.everdro1d.libs.io.Files.deleteDirectory;
@@ -129,14 +130,18 @@ public class RecipeWorker {
         loadContentFile(contentFilePath, r);
 
         // load images
-        List<Path> images = new ArrayList<>();
-        for (String f : com.everdro1d.libs.io.Files.getAllFilesInDirectory(imagesDirPath.toString())) {
-            images.add(Path.of(imagesDirPath + File.separator + f));
-        }
-        r.setImages(images.toArray(new Path[0]));
+        Set<Path> images = com.everdro1d.libs.io.Files.getAllFilesInDirectory(imagesDirPath.toString()).stream().filter(file -> {
+            try {
+                String mimeType = Files.probeContentType(Path.of(file));
+                return mimeType != null && mimeType.startsWith("image/");
+            } catch (IOException e) {
+                return false;
+            }
+        }).map(Path::of).collect(Collectors.toSet());
+        r.setImages(images);
 
         // load files
-        List<Path> files = new ArrayList<>();
+        Set<Path> files = new HashSet<>();
         for (String f : com.everdro1d.libs.io.Files.getAllFilesInDirectory(filesDirPath.toString())) {
             files.add(Path.of(filesDirPath + File.separator + f));
         }
@@ -249,8 +254,8 @@ public class RecipeWorker {
         map.put("notes", r.getNotes());
         map.put("source", r.getSource());
 
-        map.put("tags", Arrays.toString(r.getTags()));
-        map.put("categories", Arrays.toString(r.getCategories()));
+        map.put("tags", r.getTags().toString());
+        map.put("categories", r.getCategories().toString());
 
         return map;
     }
@@ -268,8 +273,8 @@ public class RecipeWorker {
         r.setNotes(map.get("notes"));
         r.setSource(map.get("source"));
 
-        r.setTags(map.get("tags").replaceAll("[\\[\\]\\s]", "").split(","));
-        r.setCategories(map.get("categories").replaceAll("[\\[\\]\\s]", "").split(","));
+        r.setTags(Arrays.stream(map.get("tags").replaceAll("[\\[\\]\\s]", "").split(",")).collect(Collectors.toSet()));
+        r.setCategories(Arrays.stream(map.get("categories").replaceAll("[\\[\\]\\s]", "").split(",")).collect(Collectors.toSet()));
 
         return true;
     }
