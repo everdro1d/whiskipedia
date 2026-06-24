@@ -199,7 +199,7 @@ public class MainWorker {
     public static void showDebugConsole() {
         if (debugConsoleWindow == null) {
             debugConsoleWindow = new DebugConsoleWindow(
-                    MainWindow.topFrame, MainWindow.fontName,
+                    MainWindow.fontName,
                     (MainWindow.fontSize - 2), prefs,
                     debug, localeManager
             );
