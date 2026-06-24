@@ -210,6 +210,7 @@ public class MainWorker {
             System.out.println("Current locale: " + currentLocale + " at: " + localeManager.getLocaleDirectoryPath());
             System.out.println("Application: " + MainWindow.titleText + " v" + currentVersion);
             System.out.println("Detected OS: " + MainWorker.detectedOS);
+            System.out.println("Current recipe repository path: " + recipeRepositoryPath);
 
         } else if (!debugConsoleWindow.isVisible()) {
             debugConsoleWindow.setVisible(true);
