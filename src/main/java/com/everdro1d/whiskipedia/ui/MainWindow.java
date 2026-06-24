@@ -6,20 +6,19 @@ package com.everdro1d.whiskipedia.ui;
 
 import com.everdro1d.libs.swing.ImageUtils;
 import com.everdro1d.libs.swing.SwingGUI;
+import com.everdro1d.libs.swing.components.TrackingFrame;
 import com.everdro1d.whiskipedia.ui.panels.RecipeDetailsPanel;
 import com.everdro1d.whiskipedia.ui.panels.RecipeListSearchPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.Map;
 import java.util.TreeMap;
 
 import static com.everdro1d.whiskipedia.core.ButtonAction.showSettingsWindow;
 import static com.everdro1d.whiskipedia.core.MainWorker.*;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends TrackingFrame {
     // Variables ------------------------------------------------------------------------------------------------------|
 
     // Swing components - Follow tab hierarchy for organization -----------|
@@ -58,6 +57,7 @@ public class MainWindow extends JFrame {
     // End of variables -----------------------------------------------------------------------------------------------|
 
     public MainWindow() {
+        super(prefs, "mainWindow");
         // if the locale does not contain the class, add it and it's components
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")) {
             //addClassToLocale(); TODO: re-enable when built
@@ -93,19 +93,6 @@ public class MainWindow extends JFrame {
         topFrame.setMinimumSize(new Dimension(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT));
         topFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         topFrame.setResizable(true);
-        topFrame.setLocationRelativeTo(null);
-
-        topFrame.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentMoved(ComponentEvent e) {
-                windowPosition = SwingGUI.getFramePositionOnScreen(topFrame);
-            }
-
-            @Override
-            public void componentResized(ComponentEvent e) {
-                windowSize = topFrame.getSize();
-            }
-        });
     }
 
     private void initializeGUIComponents() {

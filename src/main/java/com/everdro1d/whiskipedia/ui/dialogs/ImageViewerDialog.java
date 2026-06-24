@@ -1,6 +1,6 @@
 package com.everdro1d.whiskipedia.ui.dialogs;
 
-import com.everdro1d.libs.swing.SwingGUI;
+import com.everdro1d.libs.swing.components.TrackingFrame;
 import com.everdro1d.whiskipedia.core.RecipeWorker;
 import com.everdro1d.whiskipedia.ui.MainWindow;
 
@@ -10,8 +10,6 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -23,7 +21,7 @@ import static com.everdro1d.libs.swing.ImageUtils.getScaledImage;
 import static com.everdro1d.whiskipedia.core.MainWorker.*;
 import static com.everdro1d.whiskipedia.ui.MainWindow.EDGE_PADDING;
 
-public class ImageViewerDialog extends JFrame {
+public class ImageViewerDialog extends TrackingFrame {
 
     private JFrame topFrame;
     private JPanel topPanel;
@@ -54,8 +52,6 @@ public class ImageViewerDialog extends JFrame {
     // Window Related ---
     private static final int MIN_WINDOW_WIDTH = 500;
     private static final int MIN_WINDOW_HEIGHT = 400;
-    public static int[] windowPosition = {0, 0, 0};
-    public static Dimension windowSize = new Dimension();
 
     // Other ---
     private final Border defaultBorder = BorderFactory.createCompoundBorder(
@@ -70,6 +66,8 @@ public class ImageViewerDialog extends JFrame {
     );
 
     public ImageViewerDialog() {
+        super(prefs, "imageViewer");
+
         if (!localeManager.getClassesInLocaleMap().contains("MainWindow")
                 || !localeManager.getComponentsInClassMap("MainWindow")
                 .contains("ImageViewerDialog")
@@ -111,36 +109,12 @@ public class ImageViewerDialog extends JFrame {
         topFrame.setMinimumSize(new Dimension(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT));
         topFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         topFrame.setResizable(true);
-        topFrame.setLocationRelativeTo(getMainWindow());
-
-        topFrame.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentMoved(ComponentEvent e) {
-                ImageViewerDialog.windowPosition = SwingGUI.getFramePositionOnScreen(topFrame);
-            }
-            @Override
-            public void componentResized(ComponentEvent e) {
-                ImageViewerDialog.windowSize = topFrame.getSize();
-            }
-        });
     }
 
     private void showWindow() {
         topFrame.revalidate();
         topFrame.repaint();
         topFrame.setVisible(true);
-
-        SwingGUI.setFramePosition(
-                topFrame,
-                ImageViewerDialog.windowPosition[0],
-                ImageViewerDialog.windowPosition[1],
-                ImageViewerDialog.windowPosition[2]
-        );
-
-        topFrame.setSize(
-                prefs.getInt("imageViewerWindowWidth", MIN_WINDOW_WIDTH),
-                prefs.getInt("imageViewerWindowHeight", MIN_WINDOW_HEIGHT)
-        );
     }
 
     private void initializeGUIComponents() {
@@ -260,18 +234,6 @@ public class ImageViewerDialog extends JFrame {
                 thumbnailButtons.get(i).setBorder(defaultBorder);
             }
         }
-    }
-
-    @Override
-    public void dispose() {
-        prefs.putInt("imageViewerFramePosX", ImageViewerDialog.windowPosition[0]);
-        prefs.putInt("imageViewerFramePosY", ImageViewerDialog.windowPosition[1]);
-        prefs.putInt("imageViewerActiveMonitor", ImageViewerDialog.windowPosition[2]);
-
-        prefs.putInt("imageViewerWindowWidth", ImageViewerDialog.windowSize.width);
-        prefs.putInt("imageViewerWindowHeight", ImageViewerDialog.windowSize.height);
-
-        super.dispose();
     }
 
     /**

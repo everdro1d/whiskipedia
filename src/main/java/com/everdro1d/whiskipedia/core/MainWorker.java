@@ -14,7 +14,6 @@ import com.everdro1d.libs.swing.windows.DebugConsoleWindow;
 import com.everdro1d.whiskipedia.core.commands.GUIDebugCommand;
 import com.everdro1d.whiskipedia.ui.MainWindow;
 import com.everdro1d.whiskipedia.core.commands.DebugCommand;
-import com.everdro1d.whiskipedia.ui.dialogs.ImageViewerDialog;
 
 import static com.everdro1d.whiskipedia.core.ButtonAction.settingsWindow;
 import static com.everdro1d.whiskipedia.core.RecipeWorker.recipeRepositoryName;
@@ -50,9 +49,7 @@ public class MainWorker {
     public static boolean guiDebugColoring = false;
     public static DebugConsoleWindow debugConsoleWindow;
     public static final Preferences prefs = Preferences.userNodeForPackage(MainWorker.class);
-    public static int[] windowPosition = {0, 0, 0};
     public static int centerPanelDividerLocation;
-    public static Dimension windowSize = new Dimension();
 
     private static MainWindow mainWindow;
 
@@ -149,8 +146,6 @@ public class MainWorker {
     private static void loadPreferencesAndQueueSave() {
         ApplicationCore.loadConfigFile(MainWorker.class, developerConfigDirectoryName);
 
-        loadWindowPosition();
-
         centerPanelDividerLocation = prefs.getInt("dividerLocation", 250);
 
         currentLocale = prefs.get("currentLocale", "eng");
@@ -166,7 +161,6 @@ public class MainWorker {
 
     private static void savePreferencesOnExit() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            saveWindowPosition();
 
             prefs.putInt("dividerLocation", (mainWindow != null ? mainWindow.getCenterPanelDividerLocation() : centerPanelDividerLocation));
 
@@ -182,46 +176,13 @@ public class MainWorker {
         }));
     }
 
-    private static void loadWindowPosition() {
-        windowPosition[0] = prefs.getInt("framePosX", 0);
-        windowPosition[1] = prefs.getInt("framePosY", 0);
-        windowPosition[2] = prefs.getInt("activeMonitor", 0);
-
-        ImageViewerDialog.windowPosition[0] = prefs.getInt("imageViewerFramePosX", 0);
-        ImageViewerDialog.windowPosition[1] = prefs.getInt("imageViewerFramePosY", 0);
-        ImageViewerDialog.windowPosition[2] = prefs.getInt("imageViewerActiveMonitor", 0);
-    }
-
-    private static void saveWindowPosition() {
-        prefs.putInt("framePosX", windowPosition[0]);
-        prefs.putInt("framePosY", windowPosition[1]);
-        prefs.putInt("activeMonitor", windowPosition[2]);
-
-        prefs.putInt("windowWidth", windowSize.width);
-        prefs.putInt("windowHeight", windowSize.height);
-    }
-
     private static void startMainWindow() {
         EventQueue.invokeLater(() -> {
             try {
                 mainWindow = new MainWindow();
                 windowFrameArray[0] = mainWindow;
 
-                SwingGUI.setFramePosition(
-                        mainWindow,
-                        windowPosition[0],
-                        windowPosition[1],
-                        windowPosition[2]
-                );
-
                 mainWindow.setCenterPanelDividerLocation(centerPanelDividerLocation);
-
-                windowSize.setSize(
-                        prefs.getInt("windowWidth", mainWindow.getMinimumWindowWidth()),
-                        prefs.getInt("windowHeight", mainWindow.getMinimumWindowHeight())
-                );
-
-                mainWindow.setSize(windowSize);
 
                 ImageUtils.setFrameIcon(mainWindow, "images/logoIcon50.png", MainWorker.class);
 
