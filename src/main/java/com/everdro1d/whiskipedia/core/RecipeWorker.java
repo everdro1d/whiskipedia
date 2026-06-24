@@ -86,7 +86,7 @@ public class RecipeWorker {
             return false;
         }
 
-        // TODO probably good to call up a dialog here
+        // TODO probably good to call up a dialog here - see CreateRecipeDialog - return a RecipeObject
         RecipeObject newRecipe = new RecipeObject();
 
         recipeIDTrie.insert(recipeID, newRecipe);

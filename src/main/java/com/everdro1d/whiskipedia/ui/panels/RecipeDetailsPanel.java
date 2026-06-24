@@ -151,10 +151,6 @@ public class RecipeDetailsPanel extends JPanel {
             c.gridy++;
             c.weighty = 1;
 
-            //TODO add a convert button, pressing opens a conversion dialog
-            // and will replace the ingredient in the list with the converted one
-            // double click on list item should have the same effect?
-
             ingredientInstructionsContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
             if (guiDebugColoring) ingredientInstructionsContainer.setBackground(Color.ORANGE);
             detailsPanel.add(ingredientInstructionsContainer, c);
@@ -167,7 +163,8 @@ public class RecipeDetailsPanel extends JPanel {
                 // combobox-ingredient : label-amount -> combobox-new-unit
                 // use options convert permanent (replace ingredients in recipe object)
                 // or convert temporary (copy a temp recipe object, replace ingr., show in details, toss when done)
-                // to this end, wrap ingredients in a panel and add a button below
+                // to this end, wrap ingredients in a panel and add a button below.
+                // Should double click on list item should have the same effect?
 
                 ingredientsModel = new DefaultListModel<>();
 
@@ -265,12 +262,6 @@ public class RecipeDetailsPanel extends JPanel {
                 }
 
             }
-
-            //TODO add buttons (right side) for viewing images, files, notes, etc.
-            // use dialogs to show these
-            // see https://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
-            // for image viewer example
-
         }
     }
 

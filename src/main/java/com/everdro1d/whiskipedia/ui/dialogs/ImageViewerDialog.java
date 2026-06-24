@@ -105,7 +105,7 @@ public class ImageViewerDialog extends TrackingFrame {
 
     private void initializeWindowProperties() {
         topFrame = this;
-        topFrame.setTitle(titleText); // TODO append filename
+        topFrame.setTitle(titleText);
         topFrame.setMinimumSize(new Dimension(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT));
         topFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         topFrame.setResizable(true);
@@ -328,11 +328,6 @@ public class ImageViewerDialog extends TrackingFrame {
         return path;
     }
 
-    //TODO tie in with RecipeObject images listing
-    // currently this class scans the image directory
-    // we should be asking the recipe file for the images,
-    // checking if they exist, and prompting to update the
-    // list if some are removed or extra exist
     private List<String> populateImageFileList() {
         imageDir = findImageDir();
 

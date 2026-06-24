@@ -110,7 +110,7 @@ public class RecipeObject {
 
     // ------------------------------------------------------------------------|
     public RecipeObject(
-            String name, // text TODO
+            String name, // text
             String description, // text
 
             String instructions, // text
@@ -219,6 +219,8 @@ public class RecipeObject {
         return name;
     }
 
+    //TODO since changing the name doesn't write files, just makes a new one, should there be a
+    // dedicated "move recipe" or "cleanup old" method?
     /**
      * !!DOES NOT WRITE FILES!!
      * <br>Sets name and updates ID.

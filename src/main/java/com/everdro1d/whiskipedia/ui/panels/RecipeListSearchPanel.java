@@ -96,7 +96,7 @@ public class RecipeListSearchPanel extends JPanel {
                 listUtilsMenuBar.add(placeholder);
 
                 //TODO add buttons for mgmt of recipes (create, delete-with confirm)
-                // TODO add buttons (2) for sort order and filtering (asc, desc..., type of dish, etc.)
+                // add buttons (2) for sort order and filtering (asc, desc..., type of dish, etc.)
             }
 
             searchBar = new LabeledTextField(searchBarDefaultText);
