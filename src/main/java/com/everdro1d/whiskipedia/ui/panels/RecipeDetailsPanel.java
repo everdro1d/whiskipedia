@@ -267,7 +267,7 @@ public class RecipeDetailsPanel extends JPanel {
 
     public void setRecipeDetails(String key) {
         // Fetch details of recipe object ---
-        RecipeObject r = RecipeWorker.getRecipeIDTrie().get(key);
+        RecipeObject r = (key != null ? RecipeWorker.getRecipeIDTrie().get(key) : null);
 
         if (r == null) {
             cardLayout.show(this, "EMPTY");
