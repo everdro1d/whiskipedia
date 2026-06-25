@@ -8,8 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="json" level="project" />
-    <orderEntry type="library" exported="" name="dro1d-libs-java" level="project" />
-    <orderEntry type="library" exported="" name="formdev.flatlaf" level="project" />
+    <orderEntry type="library" exported="" name="dro1d-libs-java" level="application" />
+    <orderEntry type="library" exported="" name="formdev.flatlaf" level="application" />
+    <orderEntry type="library" exported="" name="json" level="application" />
   </component>
 </module>
