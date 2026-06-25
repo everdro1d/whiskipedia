@@ -169,8 +169,10 @@ public class MainWorker {
 
             prefs.put("recipeRepositoryPath", recipeRepositoryPath);
 
-            prefs.put("selectedRecipeKey", RecipeWorker.selectedRecipe[0]);
-            prefs.put("selectedRecipeName", RecipeWorker.selectedRecipe[1]);
+            String k = RecipeWorker.selectedRecipe[0];
+            String n = RecipeWorker.selectedRecipe[1];
+            prefs.put("selectedRecipeKey",  (k != null ? k : ""));
+            prefs.put("selectedRecipeName", (n != null ? n : ""));
 
             ApplicationCore.saveConfigFile(MainWorker.class, developerConfigDirectoryName, prefs);
         }));
